@@ -2,6 +2,7 @@ package com.lemon.config.datasource;
 
 
 
+import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 public class DataSourceConfig {
 
     /**
-     * mybatis-plus SQL执行效率插件【生产环境可以关闭】
+     * mybatis-plus SQL执行效率插件【生产环境关闭】
      *
      * @return
      */
@@ -38,5 +39,15 @@ public class DataSourceConfig {
 
         return paginationInterceptor;
     }
+    /**
+     * 乐观锁
+     *
+     * @return
+     */
+    @Bean
+    public OptimisticLockerInterceptor optimisticLockerInterceptor() {
+        return new OptimisticLockerInterceptor();
+    }
+
 }
 

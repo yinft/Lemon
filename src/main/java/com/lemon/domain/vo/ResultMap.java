@@ -31,7 +31,7 @@ public class ResultMap<T> {
         {
             ResultMap<T> resultVO = new ResultMap<>();
             resultVO.setData(object);
-            resultVO.setCode(0);
+            resultVO.setCode(200);
             resultVO.setMsg("成功");
             return resultVO;
         }

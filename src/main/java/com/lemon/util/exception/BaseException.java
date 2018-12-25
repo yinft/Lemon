@@ -4,14 +4,15 @@ import com.lemon.enums.ResultEnum;
 
 /**
  * 创建异常类
+ *
  * @Author: yinft
  * @Date: 2018/12/25 10:51
  * @Version 1.0
  */
-public class BaseException extends RuntimeException{
+public class BaseException extends RuntimeException {
 
     private Integer code;
-     private String message;
+    private String message;
 
     public Integer getCode() {
         return code;
@@ -31,13 +32,13 @@ public class BaseException extends RuntimeException{
     }
 
     public BaseException(ResultEnum resultEnum) {
-              super(resultEnum.getMessage());
-             this.code = resultEnum.getCode();
-           }
+        super(resultEnum.getMessage());
+        this.code = resultEnum.getCode();
+    }
 
-            public BaseException(Integer code,String message) {
-                this.code = code;
-                this.message = message;
-            }
+    public BaseException(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 
 }

@@ -2,15 +2,18 @@ package com.lemon.domain.vo;
 
 import com.lemon.enums.ResultEnum;
 
+import java.io.Serializable;
+
 /**
+ * 异常统一格式类
  * @Author: yinft
  * @Date: 2018/12/16 22:55
  * @Version 1.0
  */
-public class ResultMap<T> {
+public class ResultMap<T> implements Serializable {
 
 
-        private static final long serialVersionUID = -5897234194040793245L;
+    private static final long serialVersionUID = 8960474786737581150L;
 
         /**
          * 状态码

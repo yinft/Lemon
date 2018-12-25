@@ -38,10 +38,10 @@ public class UserController {
 
     @ApiOperation(value = "登陆", notes = "登陆", consumes = "application/json")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public JwtAuthenticationDto login(@RequestBody @Valid ResultMap<LoginDto> requestObject) {
+    public ResultMap<JwtAuthenticationDto> login(@RequestBody @Valid ResultMap<LoginDto> requestObject) {
         LoginDto loginDto = requestObject.getData();
         JwtAuthenticationDto tokenDto = userService.login(loginDto);
-        return tokenDto;
+        return ResultMap.success(tokenDto);
     }
 
 

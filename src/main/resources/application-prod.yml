@@ -27,3 +27,11 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     # 合并多个DruidDataSource的监控数据
     useGlobalDataSourceStat: false
+
+  redis:
+    database: 0
+    host: 127.0.0.1
+    # 连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password:

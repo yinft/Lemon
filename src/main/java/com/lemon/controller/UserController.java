@@ -6,6 +6,7 @@ import com.lemon.domain.dto.LoginDto;
 import com.lemon.domain.vo.ResultMap;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,11 @@ import javax.validation.Valid;
  * @Date: 2018/12/18 22:03
  * @Version 1.0
  */
+@Slf4j
 @Api(description = "用户管理")
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-
-    @Autowired
-    private StringRedisTemplate redisTemplate;
 
     @Autowired
     private UserService userService;
@@ -40,8 +37,8 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResultMap<JwtAuthenticationDto> login(@RequestBody @Valid ResultMap<LoginDto> requestObject) {
         LoginDto loginDto = requestObject.getData();
-        JwtAuthenticationDto tokenDto = userService.login(loginDto);
-        return ResultMap.success(tokenDto);
+        JwtAuthenticationDto token = userService.login(loginDto);
+        return ResultMap.success(token);
     }
 
 

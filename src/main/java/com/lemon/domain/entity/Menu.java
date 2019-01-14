@@ -1,7 +1,6 @@
 package com.lemon.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -10,16 +9,15 @@ import lombok.Setter;
 
 import java.util.Date;
 
-
 /**
  * @Author: yinft
- * @Date: 2019/1/10 20:34
+ * @Date: 2019/1/14 16:10
  * @Version 1.0
  */
 @Setter
 @Getter
-@TableName("user")
-public class SysUser extends Model<SysUser> {
+@TableName("menu")
+public class Menu extends Model<Menu> {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,47 +27,35 @@ public class SysUser extends Model<SysUser> {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-
-
-    /**
-     * 头像地址
-     */
-    private String avatar;
-
-    /**
-     * 创建时间
-     */
-    @TableField("createTime")
     private Date createTime;
 
     /**
-     * 更新时间
+     * 侧边菜单名
      */
-    @TableField("updateTime")
-    private Date updateTime;
+    private String name;
 
     /**
-     * 手机号码
+     * 组件url
      */
-    private String phone;
-
-
-    /**
-     * 邮箱
-     */
-    private String email;
+    private String component;
 
     /**
-     * 密码
+     * 父级菜单id
      */
-    private String password;
-    /**
-     * 用户名
-     */
-    private String username;
+    private Long pid;
 
     /**
-     * 账户状态
+     * 菜单排序
      */
-    private Boolean enabled;
+    private Long sort;
+
+    private String icon;
+
+    /**
+     * 访问路径
+     */
+    private String path;
+
+
+
 }

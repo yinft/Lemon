@@ -1,3 +1,17 @@
 spring:
   profiles:
     active: dev
+
+
+#jwt
+jwt:
+  header: Authorization
+  secret: mySecret
+  # token 过期时间 2个小时
+  expiration: 7200000
+#  expiration: 60000
+  auth:
+    # 授权路径
+    path: /login
+    # 获取用户信息
+    account: /info

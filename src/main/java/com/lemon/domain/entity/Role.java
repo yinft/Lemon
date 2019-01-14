@@ -10,16 +10,16 @@ import lombok.Setter;
 
 import java.util.Date;
 
-
 /**
  * @Author: yinft
- * @Date: 2019/1/10 20:34
+ * @Date: 2019/1/14 10:40
  * @Version 1.0
  */
+
 @Setter
 @Getter
-@TableName("user")
-public class SysUser extends Model<SysUser> {
+@TableName("role")
+public class Role extends Model<Role> {
 
     private static final long serialVersionUID = 1L;
 
@@ -32,9 +32,9 @@ public class SysUser extends Model<SysUser> {
 
 
     /**
-     * 头像地址
+     * 角色名称
      */
-    private String avatar;
+    private String name;
 
     /**
      * 创建时间
@@ -43,33 +43,8 @@ public class SysUser extends Model<SysUser> {
     private Date createTime;
 
     /**
-     * 更新时间
+     * 标识
      */
-    @TableField("updateTime")
-    private Date updateTime;
+    private String remark;
 
-    /**
-     * 手机号码
-     */
-    private String phone;
-
-
-    /**
-     * 邮箱
-     */
-    private String email;
-
-    /**
-     * 密码
-     */
-    private String password;
-    /**
-     * 用户名
-     */
-    private String username;
-
-    /**
-     * 账户状态
-     */
-    private Boolean enabled;
 }

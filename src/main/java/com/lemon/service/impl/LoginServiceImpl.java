@@ -1,14 +1,13 @@
-package com.lemon.Service.impl;
+package com.lemon.service.impl;
 
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lemon.Service.UserService;
+import com.lemon.service.UserService;
 import com.lemon.dao.UserDao;
 import com.lemon.domain.dto.JwtAuthenticationDto;
 import com.lemon.domain.dto.LoginDto;
-import com.lemon.domain.entity.SysUser;
+import com.lemon.domain.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -17,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @Date: 2019/1/10 22:06
  * @Version 1.0
  */
-public class LoginServiceImpl extends ServiceImpl<UserDao,SysUser> implements UserService {
+public class LoginServiceImpl extends ServiceImpl<UserDao,User> implements UserService {
 
     @Autowired
 //    @Qualifier("jwtUserDetailsService")

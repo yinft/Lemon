@@ -19,7 +19,7 @@ import java.util.Date;
 @Setter
 @Getter
 @TableName("user")
-public class SysUser extends Model<SysUser> {
+public class User extends Model<User> {
 
     private static final long serialVersionUID = 1L;
 

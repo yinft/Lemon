@@ -1,16 +1,13 @@
 package com.lemon.controller;
 
-import com.lemon.Service.UserService;
+import com.lemon.service.UserService;
 import com.lemon.domain.dto.JwtAuthenticationDto;
 import com.lemon.domain.dto.LoginDto;
 import com.lemon.domain.vo.ResultMap;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

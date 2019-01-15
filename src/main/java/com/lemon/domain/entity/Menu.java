@@ -49,6 +49,10 @@ public class Menu extends Model<Menu> {
      */
     private Long sort;
 
+
+    /**
+     * 图标
+     */
     private String icon;
 
     /**

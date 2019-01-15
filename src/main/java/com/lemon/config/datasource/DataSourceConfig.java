@@ -5,8 +5,10 @@ package com.lemon.config.datasource;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @Author: yinft
@@ -14,7 +16,10 @@ import org.springframework.context.annotation.Configuration;
  * @Version 1.0
  * 数据源配置类
  */
+
 @Configuration
+@EnableTransactionManagement
+@MapperScan(basePackages = {"com.lemon.dao"})
 public class DataSourceConfig {
 
     /**

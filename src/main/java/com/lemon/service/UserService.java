@@ -13,6 +13,7 @@ import com.lemon.domain.entity.User;
 public interface UserService extends IService<User> {
 
     /**
+     * @param loginDto
      * 登陆
      */
     JwtAuthenticationDto login(LoginDto loginDto);

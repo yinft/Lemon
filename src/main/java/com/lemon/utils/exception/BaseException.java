@@ -1,4 +1,4 @@
-package com.lemon.util.exception;
+package com.lemon.utils.exception;
 
 import com.lemon.enums.ResultEnum;
 
@@ -37,8 +37,14 @@ public class BaseException extends RuntimeException {
     }
 
     public BaseException(Integer code, String message) {
+
         this.code = code;
         this.message = message;
     }
+
+    public BaseException(String msg){
+        super(msg);
+    }
+
 
 }

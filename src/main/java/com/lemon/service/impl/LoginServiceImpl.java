@@ -8,18 +8,21 @@ import com.lemon.domain.dto.JwtAuthenticationDto;
 import com.lemon.domain.dto.LoginDto;
 import com.lemon.domain.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 
 /**
  * @Author: yinft
  * @Date: 2019/1/10 22:06
  * @Version 1.0
  */
+@Service
 public class LoginServiceImpl extends ServiceImpl<UserDao,User> implements UserService {
 
     @Autowired
-//    @Qualifier("jwtUserDetailsService")
+    @Qualifier("jwtUserDetailsService")
     private UserDetailsService userDetailsService;
 
     @Override

@@ -8,6 +8,7 @@ import com.lemon.dao.UserDao;
 import com.lemon.domain.entity.Permission;
 import com.lemon.domain.entity.Role;
 import com.lemon.domain.entity.User;
+import com.lemon.domain.vo.UserVo;
 import com.lemon.enums.ResultEnum;
 import com.lemon.service.UserService;
 import com.lemon.utils.exception.BaseException;
@@ -52,13 +53,13 @@ public class JwtUserDetailsService extends ServiceImpl<UserDao,User> implements 
         if (user == null) {
             throw new BaseException(ResultEnum.USER_DONT_EXISTS.getCode(),ResultEnum.USER_DONT_EXISTS.getMessage());
         } else {
-            return create(user);
+            return create(userVo);
         }
     }
 
-    public UserDetails create(User user) {
+    public UserDetails create(UserVo userVo) {
         return new JwtUser(
-                user.getId(),
+                userVo.getId(),
                 user.getUsername(),
                 user.getPassword(),
                 user.getAvatar(),

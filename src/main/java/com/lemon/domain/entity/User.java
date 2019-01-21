@@ -27,7 +27,7 @@ public class User extends Model<User> {
      * 主键,自增长
      */
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
 
 
@@ -48,11 +48,6 @@ public class User extends Model<User> {
      */
     @TableField("updateTime")
     private Date updateTime;
-
-    /**
-     * 手机号码
-     */
-    private String phone;
 
 
     /**

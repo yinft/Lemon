@@ -1,5 +1,6 @@
 package com.lemon.domain.vo;
 
+import com.lemon.domain.entity.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,7 @@ import java.util.Set;
 public class UserVo {
 
 
-    private Integer id;
+    private Long id;
 
 
     private String avatar;
@@ -26,9 +27,6 @@ public class UserVo {
 
 
     private Date updateTime;
-
-
-    private String phone;
 
 
     private String email;
@@ -42,7 +40,7 @@ public class UserVo {
 
     private Boolean enabled;
 
-    private Set<RoleVo> roles;
+    private Set<Role> roles;
 
     @Override
     public String toString() {

@@ -3,7 +3,7 @@ package com.lemon.config.security;
 
 import com.lemon.config.auth.JwtAuthenticationEntryPoint;
 import com.lemon.config.auth.JwtAuthorizationTokenFilter;
-import com.lemon.service.impl.JwtUserDetailsService;
+import com.lemon.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

@@ -39,7 +39,7 @@ public class JwtUser implements UserDetails {
 
     private final boolean enabled;
 
-    private Timestamp createTime;
+    private Date createTime;
 
     @JsonIgnore
     private final Date updateTime;

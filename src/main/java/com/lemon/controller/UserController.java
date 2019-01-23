@@ -1,18 +1,19 @@
 package com.lemon.controller;
 
+import com.lemon.config.auth.JwtUser;
 import com.lemon.service.UserService;
 import com.lemon.domain.dto.JwtAuthenticationDto;
 import com.lemon.domain.dto.LoginDto;
 import com.lemon.domain.vo.ResultMap;
+import com.lemon.utils.JwtTokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -30,6 +31,7 @@ public class UserController {
     private UserService userService;
 
 
+
     @ApiOperation(value = "登陆", notes = "登陆", consumes = "application/json")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResultMap<JwtAuthenticationDto> login(@RequestBody @Valid ResultMap<LoginDto> requestObject) {
@@ -38,5 +40,15 @@ public class UserController {
         return ResultMap.success(token);
     }
 
+
+
+    @ApiOperation(value = "获取用户信息", notes = "获取用户信息", consumes = "application/json")
+    @GetMapping(value = "${jwt.auth.account}")
+    public ResultMap<JwtUser> getUserInfo(HttpServletRequest request) {
+
+        JwtUser jwtUser = userService.getUserInfo(request);
+
+        return ResultMap.success(jwtUser);
+    }
 
 }

@@ -2,4 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lemon.dao.PermissionDao">
 
+    <select id="seletPermissionsByRoles" resultType="com.lemon.domain.entity.Permission">
+select  p.*
+
+from roles_permissions rp
+
+
+JOIN permission p ON rp.permission_id=p.id
+
+and rp.role_id=#{id}
+
+    </select>
 </mapper>

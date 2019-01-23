@@ -1,14 +1,16 @@
 package com.lemon.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lemon.dao.PermissionDao;
-import com.lemon.dao.UserDao;
 import com.lemon.domain.entity.Permission;
 import com.lemon.domain.entity.Role;
-import com.lemon.domain.entity.User;
 import com.lemon.service.PermissionService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,11 +19,20 @@ import java.util.Set;
  * @Version 1.0
  */
 @Service
-public class PermissionServiceImpl  extends ServiceImpl<PermissionDao,Permission> implements PermissionService {
+public class PermissionServiceImpl extends ServiceImpl<PermissionDao, Permission> implements PermissionService {
+
+    private PermissionDao permissionDao;
 
 
     @Override
     public Set<Permission> findByRoles(Set<Role> roleSet) {
-        return null;
+
+        Set permissionSet = new HashSet();
+        for (Role role : roleSet) {
+            Set<Permission> permissionList = permissionDao.seletPermissionsByRoles(role.getId());
+            permissionSet.addAll(permissionList);
+        }
+
+        return permissionSet;
     }
 }

@@ -27,7 +27,7 @@ public class Role extends Model<Role> {
      * 主键,自增长
      */
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
 
 

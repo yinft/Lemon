@@ -16,16 +16,16 @@
         </collection>
     </resultMap>
 
-    <select id="findByUserName" parameterType="String" resultMap="userMap">
-		select u.*
-		,r.name
-		from user u
-        LEFT JOIN users_roles sru on u.id= sru.user_id
-        LEFT JOIN role r on sru.role_id=r.id
-        where username= #{username}
-	</select>
+    <!--<select id="findByUserName" parameterType="String" resultMap="userMap">-->
+		<!--select u.*-->
+		<!--,r.name-->
+		<!--from user u-->
+        <!--LEFT JOIN users_roles sru on u.id= sru.user_id-->
+        <!--LEFT JOIN role r on sru.role_id=r.id-->
+        <!--where username= #{username}-->
+	<!--</select>-->
 
-    <select id="findByEmail" parameterType="String" resultMap="userMap">
+    <select id="findByEmail"  resultMap="userMap">
 		select u.*
 		,r.name
 		from user u
@@ -33,5 +33,14 @@
         LEFT JOIN role r on sru.role_id=r.id
         where email= #{email}
 	</select>
+    <select id="findByUsername" resultType="com.lemon.domain.vo.UserVo">
+select u.*
+		,r.name
+		from user u
+        LEFT JOIN users_roles sru on u.id= sru.user_id
+        LEFT JOIN role r on sru.role_id=r.id
+        where username= #{username}
+
+    </select>
 
 </mapper>

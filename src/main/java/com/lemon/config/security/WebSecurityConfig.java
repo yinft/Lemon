@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 授权异常
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 
-                // 不创建会话
+                // 基于token,不创建会话
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
 
@@ -116,6 +116,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     HttpMethod.GET,
                     "/*.html",
                     "/**/*.html",
+                    "/favicon.ico",
                     "/**/*.css",
                     "/**/*.js"
             );

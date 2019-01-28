@@ -24,7 +24,7 @@ import javax.validation.Valid;
 @Slf4j
 @Api(description = "用户管理")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/auth")
 public class UserController {
 
     @Autowired
@@ -33,9 +33,8 @@ public class UserController {
 
 
     @ApiOperation(value = "登陆", notes = "登陆", consumes = "application/json")
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResultMap<JwtAuthenticationDto> login(@RequestBody @Valid ResultMap<LoginDto> requestObject) {
-        LoginDto loginDto = requestObject.getData();
+    @RequestMapping(value = "${jwt.auth.path}", method = RequestMethod.POST)
+    public ResultMap<JwtAuthenticationDto> login(@RequestBody @Valid LoginDto loginDto) {
         JwtAuthenticationDto token = userService.login(loginDto);
         return ResultMap.success(token);
     }

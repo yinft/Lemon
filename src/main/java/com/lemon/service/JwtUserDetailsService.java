@@ -9,6 +9,7 @@ import com.lemon.domain.entity.Role;
 import com.lemon.domain.entity.User;
 import com.lemon.domain.vo.UserVo;
 import com.lemon.enums.ResultEnum;
+import com.lemon.service.PermissionService;
 import com.lemon.utils.exception.BaseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +17,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +35,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class JwtUserDetailsService extends ServiceImpl<UserDao,User> implements UserDetailsService {
+public class JwtUserDetailsService  implements UserDetailsService {
 
     @Autowired
     private PermissionService permissionService;

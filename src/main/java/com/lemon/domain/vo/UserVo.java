@@ -3,6 +3,7 @@ package com.lemon.domain.vo;
 import com.lemon.domain.entity.Role;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
 import java.util.Date;
 import java.util.Set;
@@ -41,6 +42,12 @@ public class UserVo {
     private Boolean enabled;
 
     private Set<Role> roles;
+
+
+
+    public UserVo(RoleVo roleVo) {
+        BeanUtils.copyProperties(roleVo, this);
+    }
 
     @Override
     public String toString() {

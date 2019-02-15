@@ -2,6 +2,9 @@ package com.lemon.domain.vo;
 
 
 
+import com.lemon.domain.entity.Menu;
+import com.lemon.domain.entity.Permission;
+import com.lemon.domain.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,11 +32,11 @@ public class RoleVo {
 
     private String remark;
 
-    private Set<UserVo> users;
+    private Set<User> users;
 
-    private Set<PermissionVo> permissions;
+    private Set<Permission> permissions;
 
-    private Set<MenuVo> menus;
+    private Set<Menu> menus;
 
     @Override
     public String toString() {

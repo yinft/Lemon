@@ -1,8 +1,10 @@
 package com.lemon.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lemon.common.untils.ValidationUtil;
 import com.lemon.config.auth.JwtUser;
+import com.lemon.dao.PermissionDao;
 import com.lemon.dao.UserDao;
 import com.lemon.domain.entity.Permission;
 import com.lemon.domain.entity.Role;
@@ -38,7 +40,7 @@ import java.util.stream.Collectors;
 public class JwtUserDetailsService  implements UserDetailsService {
 
     @Autowired
-    private PermissionService permissionService;
+    private PermissionDao permissionDao;
 
     @Autowired
     private UserDao userDao;
@@ -46,45 +48,54 @@ public class JwtUserDetailsService  implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserVo userVo = null;
+        User user = null;
         if (ValidationUtil.isEmail(username)) {
-            userVo = userDao.findByEmail(username);
+            user = userDao.selectOne (new QueryWrapper<User>().eq("email", username));
         } else {
-            userVo = userDao.findByUsername(username);
+            user = userDao.selectOne(new QueryWrapper<User>().eq("username", username));
         }
 
-        if (userVo == null) {
+        if (user == null) {
             throw new BaseException(ResultEnum.USER_DONT_EXISTS.getCode(),ResultEnum.USER_DONT_EXISTS.getMessage());
         } else {
-            return create(userVo);
+
+            return create(user);
         }
     }
 
-    public UserDetails create(UserVo userVo) {
+    public UserDetails create(User user) {
         return new JwtUser(
-                userVo.getId(),
-                userVo.getUsername(),
-                userVo.getPassword(),
-                userVo.getAvatar(),
-                userVo.getEmail(),
-                mapToGrantedAuthorities(userVo.getRoles(),permissionService),
-                userVo.getEnabled(),
-                userVo.getCreateTime(),
-                userVo.getUpdateTime()
+                user.getId(),
+                user.getUsername(),
+                user.getPassword(),
+                user.getAvatar(),
+                user.getEmail(),
+
+                mapToGrantedAuthorities(user.getId()),
+                user.getEnabled(),
+                user.getCreateTime(),
+                user.getUpdateTime()
         );
     }
 
-    private static List<GrantedAuthority> mapToGrantedAuthorities(Set<Role> roles, PermissionService permissionService) {
+    private  List<GrantedAuthority> mapToGrantedAuthorities(Long id) {
 
-        Set<Permission> permissions = new HashSet<>();
-        for (Role role : roles) {
-            Set<Role> roleSet = new HashSet<>();
-            roleSet.add(role);
-            permissions.addAll(permissionService.findByRoles(roleSet));
-        }
-
+        Set<Permission> permissions = permissionDao.getByUserId(id);
         return permissions.stream()
                 .map(permission -> new SimpleGrantedAuthority("ROLE_"+permission.getName()))
                 .collect(Collectors.toList());
+
+
+
+//        Set<Permission> permissions = new HashSet<>();
+//        for (Role role : roles) {
+//            Set<Role> roleSet = new HashSet<>();
+//            roleSet.add(role);
+//            permissions.addAll(permissionService.findByRoles(roleSet));
+//        }
+//
+//        return permissions.stream()
+//                .map(permission -> new SimpleGrantedAuthority("ROLE_"+permission.getName()))
+//                .collect(Collectors.toList());
     }
 }

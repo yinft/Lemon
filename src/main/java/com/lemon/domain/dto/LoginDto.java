@@ -18,12 +18,12 @@ import java.io.Serializable;
 @Setter
 public class LoginDto implements Serializable{
 
-        @JsonProperty("username")
+
         @NotBlank(message ="请输入用户名!")
         @ApiModelProperty("用户名")
         private String username ;
 
-        @JsonProperty("password")
+
         @ApiModelProperty("密码")
         @NotBlank(message ="请输入密码!")
         private String password ;

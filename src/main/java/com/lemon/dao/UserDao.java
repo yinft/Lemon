@@ -1,6 +1,7 @@
 package com.lemon.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.lemon.config.auth.JwtUser;
 import com.lemon.domain.entity.User;
 import com.lemon.domain.vo.UserVo;
 import org.springframework.data.repository.query.Param;

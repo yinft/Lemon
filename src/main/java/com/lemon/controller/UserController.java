@@ -7,6 +7,7 @@ import com.lemon.domain.dto.LoginDto;
 import com.lemon.domain.vo.ResultMap;
 import com.lemon.utils.JwtTokenUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class UserController {
     }
 
 
-
+    @ApiImplicitParam(paramType = "header", name = "Authorization", defaultValue = "Bearer ")
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息", consumes = "application/json")
     @GetMapping(value = "${jwt.auth.account}")
     public ResultMap<JwtUser> getUserInfo(HttpServletRequest request) {

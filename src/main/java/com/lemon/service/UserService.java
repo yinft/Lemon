@@ -23,4 +23,6 @@ public interface UserService extends IService<User> {
 
     JwtUser getUserInfo(HttpServletRequest request);
 
+    User findByName(String username);
+
 }

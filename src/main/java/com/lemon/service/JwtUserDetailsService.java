@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
 public class JwtUserDetailsService  implements UserDetailsService {
 
     @Autowired
-    private PermissionDao permissionDao;
+    private PermissionService permissionService;
 
     @Autowired
     private UserDao userDao;
@@ -80,7 +80,7 @@ public class JwtUserDetailsService  implements UserDetailsService {
 
     private  List<GrantedAuthority> mapToGrantedAuthorities(Long id) {
 
-        Set<Permission> permissions = permissionDao.getByUserId(id);
+        Set<Permission> permissions = permissionService.getPermissionsByUserId(id);
         return permissions.stream()
                 .map(permission -> new SimpleGrantedAuthority("ROLE_"+permission.getName()))
                 .collect(Collectors.toList());

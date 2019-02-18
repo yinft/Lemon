@@ -2,8 +2,11 @@ package com.lemon.service.impl;
 
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lemon.common.untils.ValidationUtil;
 import com.lemon.config.auth.JwtUser;
+import com.lemon.enums.ResultEnum;
 import com.lemon.service.UserService;
 import com.lemon.dao.UserDao;
 import com.lemon.domain.dto.JwtAuthenticationDto;
@@ -11,6 +14,7 @@ import com.lemon.domain.dto.LoginDto;
 import com.lemon.domain.entity.User;
 import com.lemon.utils.EncryptUtils;
 import com.lemon.utils.JwtTokenUtil;
+import com.lemon.utils.exception.BaseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AccountExpiredException;
@@ -30,6 +34,9 @@ public class LoginServiceImpl extends ServiceImpl<UserDao,User> implements UserS
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private UserDao userDao;
 
     @Autowired
     @Qualifier("jwtUserDetailsService")
@@ -59,5 +66,22 @@ public class LoginServiceImpl extends ServiceImpl<UserDao,User> implements UserS
     public JwtUser getUserInfo(HttpServletRequest request) {
         JwtUser jwtUser = (JwtUser)userDetailsService.loadUserByUsername(jwtTokenUtil.getUserName(request));
         return jwtUser;
+    }
+
+    @Override
+    public User findByName(String username) {
+        User user = null;
+        if (ValidationUtil.isEmail(username)) {
+            user = userDao.selectOne (new QueryWrapper<User>().eq("email", username));
+        } else {
+            user = userDao.selectOne(new QueryWrapper<User>().eq("username", username));
+        }
+
+        if (user == null) {
+            throw new BaseException(ResultEnum.USER_DONT_EXISTS.getCode(),ResultEnum.USER_DONT_EXISTS.getMessage());
+        } else {
+
+            return user;
+        }
     }
 }

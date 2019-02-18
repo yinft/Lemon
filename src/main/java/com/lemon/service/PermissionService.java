@@ -14,6 +14,6 @@ import java.util.Set;
 
 public interface PermissionService extends IService<Permission> {
 
-    Set<Permission> findByRoles(Set<Role> roleSet);
+    Set<Permission> getPermissionsByUserId(long id);
 
 }

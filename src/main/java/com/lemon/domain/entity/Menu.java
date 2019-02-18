@@ -29,6 +29,12 @@ public class Menu extends Model<Menu> {
 
     private Date createTime;
 
+
+    /**
+     * 是否为外链 true/false
+     */
+    private Boolean iFrame;
+
     /**
      * 侧边菜单名
      */

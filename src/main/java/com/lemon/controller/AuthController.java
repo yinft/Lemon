@@ -26,7 +26,7 @@ import javax.validation.Valid;
 @Api(description = "用户管理")
 @RestController
 @RequestMapping("/auth")
-public class UserController {
+public class AuthController {
 
     @Autowired
     private UserService userService;

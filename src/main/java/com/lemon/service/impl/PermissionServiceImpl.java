@@ -23,8 +23,13 @@ import java.util.Set;
 public class PermissionServiceImpl extends ServiceImpl<PermissionDao, Permission> implements PermissionService {
 
 
+    @Autowired
+    private PermissionDao permissionDao;
+
+
     @Override
-    public Set<Permission> findByRoles(Set<Role> roleSet) {
-        return null;
+    public Set<Permission> getPermissionsByUserId(long id) {
+        Set<Permission> permissions = permissionDao.getByUserId(id);
+        return permissions;
     }
 }

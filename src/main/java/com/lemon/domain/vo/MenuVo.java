@@ -1,46 +1,31 @@
 package com.lemon.domain.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.util.Date;
-import java.util.Set;
+import lombok.Data;
+
+import java.util.List;
+
 
 /**
  * @Author: yinft
  * @Date: 2019/1/18 16:17
  * @Version 1.0
  */
-@Setter
-@Getter
+@Data
 public class MenuVo {
-
-
-    private Integer id;
-
-    private Date createTime;
-
 
     private String name;
 
+    private String path;
+
+    private String redirect;
 
     private String component;
 
+    private Boolean alwaysShow;
 
-    private Long pid;
+    private MenuMetaVo meta;
 
-
-    private Long sort;
-
-
-
-    private String icon;
-
-
-    private String path;
-
-    private Set<RoleVo> roles;
+    private List<MenuVo> children;
 
 }

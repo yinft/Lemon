@@ -1,6 +1,9 @@
 package com.lemon.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.lemon.domain.dto.MenuDto;
+import com.lemon.domain.entity.Menu;
+import com.lemon.domain.entity.Permission;
 import com.lemon.domain.entity.Role;
 import com.lemon.domain.vo.MenuVo;
 import org.springframework.cache.annotation.CacheConfig;
@@ -15,7 +18,7 @@ import java.util.Set;
  * @Version 1.0
  */
 @CacheConfig(cacheNames = "menu")
-public interface MenuService {
+public interface MenuService extends IService<Menu> {
 
 
     /**

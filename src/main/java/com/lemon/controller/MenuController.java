@@ -36,8 +36,7 @@ import java.util.Set;
 public class MenuController {
 
     @Autowired
-    @Qualifier("jwtUserDetailsService")
-    private UserDetailsService userDetailsService;
+    private UserService userService;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -53,12 +52,12 @@ public class MenuController {
     @ApiOperation(value = "构建菜单", notes = "构建菜单", consumes = "application/json")
     @GetMapping(value = "/menus/build")
     public ResultMap<List<MenuVo>> buildMenus(HttpServletRequest request){
-        JwtUser jwtUser = (JwtUser)userDetailsService.loadUserByUsername(jwtTokenUtil.getUserName(request));
 
-        List<MenuDto> menuDTOList = menuService.findByRoles((Set<Role>) jwtUser.getRoles());
+        User user = userService.findByName(jwtTokenUtil.getUserName(request));
 
-
+        List<MenuDto> menuDTOList = menuService.findByRoles((Set<Role>) user.getRoles());
         List<MenuVo> menuVoList=menuService.buildMenus((List<MenuDto>)menuService.buildTree(menuDTOList).get("content"));
+
         return ResultMap.success(menuVoList);
     }
 

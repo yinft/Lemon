@@ -9,4 +9,6 @@ import com.lemon.domain.entity.Role;
  * @Version 1.0
  */
 public interface RoleDao extends BaseMapper<Role> {
+
+
 }

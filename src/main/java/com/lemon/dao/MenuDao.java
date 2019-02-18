@@ -2,6 +2,9 @@ package com.lemon.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lemon.domain.entity.Menu;
+import com.lemon.domain.entity.Role;
+
+import java.util.Set;
 
 
 /**
@@ -11,5 +14,11 @@ import com.lemon.domain.entity.Menu;
  */
 
 public interface MenuDao extends BaseMapper<Menu> {
+    /**
+     * findByRoles
+     * @param roleSet
+     * @return
+     */
+    Set<Menu> findByRolesOrderBySort(Set<Role> roleSet);
 
 }

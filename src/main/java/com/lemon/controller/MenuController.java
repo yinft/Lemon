@@ -55,7 +55,7 @@ public class MenuController {
 
         User user = userService.findByName(jwtTokenUtil.getUserName(request));
 
-        List<MenuDto> menuDTOList = menuService.findByRoles((Set<Role>) user.getRoles());
+        List<MenuDto> menuDTOList = menuService.getMenusByUserId(user.getId());
         List<MenuVo> menuVoList=menuService.buildMenus((List<MenuDto>)menuService.buildTree(menuDTOList).get("content"));
 
         return ResultMap.success(menuVoList);

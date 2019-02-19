@@ -60,17 +60,22 @@ public class MenuServiceImpl  extends ServiceImpl<MenuDao,Menu> implements MenuS
         return map;
     }
 
-    @Override
-    public List<MenuDto> findByRoles(Set<Role> roles) {
+//    @Override
+//    public List<MenuDto> findByRoles(Set<Role> roles) {
+//
+//        Set<Menu> menus = new LinkedHashSet<>();
+//        for (Role role : roles) {
+//            Set<Role> roleSet = new HashSet<>();
+//            roleSet.add(role);
+//           long id= roleService.getOne(new QueryWrapper<Role>().eq("name", role)).getId();
+//            menus.addAll(menuDao.findByRolesOrderBySort(id));
+//        }
+//        return menus.stream().map(menuDao::toDto).collect(Collectors.toList());
+//    }
 
-        Set<Menu> menus = new LinkedHashSet<>();
-        for (Role role : roles) {
-            Set<Role> roleSet = new HashSet<>();
-            roleSet.add(role);
-           long id= roleService.getOne(new QueryWrapper<Role>().eq("name", role)).getId();
-            menus.addAll(menuDao.findByRolesOrderBySort(id));
-        }
-        return menus.stream().map(menuDao::toDto).collect(Collectors.toList());
+    @Override
+    public List<MenuDto> getMenusByUserId(long id) {
+        return null;
     }
 
     @Override

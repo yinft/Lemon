@@ -28,14 +28,21 @@ public interface MenuService extends IService<Menu> {
      */
     Map buildTree(List<MenuDto> menuDTOS);
 
+
+
+//    /**
+//     * findByRoles
+//     * @param roles
+//     * @return
+//     */
+//    List<MenuDto> findByRoles(Set<Role> roles);
+
     /**
-     * findByRoles
-     * @param roles
+     * getMenusByUserId
+     * @param id
      * @return
      */
-    List<MenuDto> findByRoles(Set<Role> roles);
-
-
+    List<MenuDto> getMenusByUserId(long id);
 
     /**
      * buildMenus

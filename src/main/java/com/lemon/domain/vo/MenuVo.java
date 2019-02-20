@@ -1,6 +1,7 @@
 package com.lemon.domain.vo;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  * @Version 1.0
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class MenuVo {
 
     private String name;

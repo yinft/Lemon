@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -35,16 +36,9 @@ public class MenuDto {
 
     private List<MenuDto> children;
 
-    private Timestamp createTime;
-
-    public MenuDto() {
-
-    }
+    private Date createTime;
 
 
-    public MenuDto(Menu menu) {
 
-        BeanUtils.copyProperties(menu, this);
-    }
 
 }

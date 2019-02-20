@@ -10,8 +10,10 @@ import com.lemon.service.MenuService;
 import com.lemon.service.PermissionService;
 import com.lemon.service.UserService;
 import com.lemon.utils.JwtTokenUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,8 @@ import java.util.Set;
  * @Date: 2019/2/17 22:47
  * @Version 1.0
  */
+@Slf4j
+@Api(description = "菜单管理")
 @RestController
 @RequestMapping("api")
 public class MenuController {

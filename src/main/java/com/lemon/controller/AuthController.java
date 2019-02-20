@@ -23,7 +23,7 @@ import javax.validation.Valid;
  * @Version 1.0
  */
 @Slf4j
-@Api(description = "用户管理")
+@Api(description = "用户登录管理")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

@@ -12,6 +12,7 @@ import com.lemon.domain.vo.MenuMetaVo;
 import com.lemon.domain.vo.MenuVo;
 import com.lemon.service.MenuService;
 import com.lemon.service.RoleService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +26,11 @@ import java.util.stream.Collectors;
  * @Version 1.0
  */
 @Service
-public class MenuServiceImpl  extends ServiceImpl<MenuDao,Menu> implements MenuService {
+public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuService {
 
     @Autowired
     private MenuDao menuDao;
 
-    @Autowired
-    private RoleService roleService;
 
     @Override
     public Map buildTree(List<MenuDto> menuDTOS) {
@@ -53,10 +52,10 @@ public class MenuServiceImpl  extends ServiceImpl<MenuDao,Menu> implements MenuS
             }
         }
 
-        Integer totalElements = menuDTOS!=null?menuDTOS.size():0;
+        Integer totalElements = menuDTOS != null ? menuDTOS.size() : 0;
         Map map = new HashMap();
-        map.put("content",trees.size() == 0?menuDTOS:trees);
-        map.put("totalElements",totalElements);
+        map.put("content", trees.size() == 0 ? menuDTOS : trees);
+        map.put("totalElements", totalElements);
         return map;
     }
 
@@ -74,8 +73,23 @@ public class MenuServiceImpl  extends ServiceImpl<MenuDao,Menu> implements MenuS
 //    }
 
     @Override
-    public List<MenuDto> getMenusByUserId(long id) {
-        return null;
+    public List<MenuDto> getMenusByUserId(Long id) {
+
+        Set<Menu> menuSet = new LinkedHashSet<>(menuDao.getByUserId(id));
+
+        List<MenuDto> menuDtoList=new LinkedList<>();
+
+        for (Menu menu:menuSet) {
+            MenuDto menuDto=new MenuDto();
+            BeanUtils.copyProperties(menu, menuDto);
+            menuDtoList.add(menuDto);
+        }
+//        List<MenuDto> result = new ArrayList<MenuDto>(menuSet);
+
+
+//        menuSet.forEach(menu -> BeanUtils.copyProperties(menu, menuDto));
+//        List<MenuDto> menuDtoList= menuSet.stream().map(menu -> new MenuDto(menu)).collect(Collectors.toList());
+        return menuDtoList;
     }
 
     @Override
@@ -83,33 +97,33 @@ public class MenuServiceImpl  extends ServiceImpl<MenuDao,Menu> implements MenuS
 
         List<MenuVo> list = new LinkedList<>();
         menuDTOS.forEach(menuDTO -> {
-                    if (menuDTO!=null){
+                    if (menuDTO != null) {
                         List<MenuDto> menuDTOList = menuDTO.getChildren();
                         MenuVo menuVo = new MenuVo();
                         menuVo.setName(menuDTO.getName());
                         menuVo.setPath(menuDTO.getPath());
 
                         // 如果不是外链
-                        if(!menuDTO.getIFrame()){
-                            if(menuDTO.getPid().equals(0L)){
+                        if (!menuDTO.getIFrame()) {
+                            if (menuDTO.getPid().equals(0L)) {
                                 //一级目录需要加斜杠，不然访问不了
                                 menuVo.setPath("/" + menuDTO.getPath());
-                                menuVo.setComponent(StrUtil.isEmpty(menuDTO.getComponent())?"Layout":menuDTO.getComponent());
-                            }else if(!StrUtil.isEmpty(menuDTO.getComponent())){
+                                menuVo.setComponent(StrUtil.isEmpty(menuDTO.getComponent()) ? "Layout" : menuDTO.getComponent());
+                            } else if (!StrUtil.isEmpty(menuDTO.getComponent())) {
                                 menuVo.setComponent(menuDTO.getComponent());
                             }
                         }
-                        menuVo.setMeta(new MenuMetaVo(menuDTO.getName(),menuDTO.getIcon()));
-                        if(menuDTOList!=null && menuDTOList.size()!=0){
+                        menuVo.setMeta(new MenuMetaVo(menuDTO.getName(), menuDTO.getIcon()));
+                        if (menuDTOList != null && menuDTOList.size() != 0) {
                             menuVo.setAlwaysShow(true);
                             menuVo.setRedirect("noredirect");
                             menuVo.setChildren(buildMenus(menuDTOList));
                             // 处理是一级菜单并且没有子菜单的情况
-                        } else if(menuDTO.getPid().equals(0L)){
+                        } else if (menuDTO.getPid().equals(0L)) {
                             MenuVo menuVo1 = new MenuVo();
                             menuVo1.setMeta(menuVo.getMeta());
                             // 非外链
-                            if(!menuDTO.getIFrame()){
+                            if (!menuDTO.getIFrame()) {
                                 menuVo1.setPath("index");
                                 menuVo1.setName(menuVo.getName());
                                 menuVo1.setComponent(menuVo.getComponent());

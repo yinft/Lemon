@@ -1,6 +1,8 @@
 package com.lemon.domain.dto;
 
+import com.lemon.domain.entity.Menu;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -34,4 +36,15 @@ public class MenuDto {
     private List<MenuDto> children;
 
     private Timestamp createTime;
+
+    public MenuDto() {
+
+    }
+
+
+    public MenuDto(Menu menu) {
+
+        BeanUtils.copyProperties(menu, this);
+    }
+
 }

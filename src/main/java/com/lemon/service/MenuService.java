@@ -42,7 +42,7 @@ public interface MenuService extends IService<Menu> {
      * @param id
      * @return
      */
-    List<MenuDto> getMenusByUserId(long id);
+    List<MenuDto> getMenusByUserId(Long id);
 
     /**
      * buildMenus

@@ -13,9 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -47,7 +45,7 @@ public class MenuController {
      * @return
      */
     @ApiImplicitParam(paramType = "header", name = "Authorization", defaultValue = "Bearer ")
-    @ApiOperation(value = "构建组件路由菜单", notes = "构建组件路由菜单", consumes = "application/json")
+    @ApiOperation(value = "构建前端组件路由菜单", notes = "构建前端组件路由菜单", consumes = "application/json")
     @GetMapping(value = "/menus/build")
     public ResultMap<List<MenuVo>> buildMenus(HttpServletRequest request){
         User user = userService.findByName(jwtTokenUtil.getUserName(request));
@@ -82,7 +80,7 @@ public class MenuController {
 
     @ApiImplicitParam(paramType = "header", name = "Authorization", defaultValue = "Bearer ")
     @ApiOperation(value = "新增菜单", notes = "新增菜单", consumes = "application/json")
-    @GetMapping(value = "/menus")
+    @PostMapping(value = "/menus")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_CREATE')")
     public ResultMap<List> creatMenus(){
        return null;
@@ -91,7 +89,7 @@ public class MenuController {
 
     @ApiImplicitParam(paramType = "header", name = "Authorization", defaultValue = "Bearer ")
     @ApiOperation(value = "修改菜单", notes = "修改菜单", consumes = "application/json")
-    @GetMapping(value = "/menus")
+    @PutMapping(value = "/menus")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_EDIT')")
     public ResultMap<List> updateMenus(){
         return null;
@@ -100,9 +98,9 @@ public class MenuController {
 
     @ApiImplicitParam(paramType = "header", name = "Authorization", defaultValue = "Bearer ")
     @ApiOperation(value = "删除菜单", notes = "删除菜单", consumes = "application/json")
-    @GetMapping(value = "/menus")
+    @DeleteMapping(value = "/menus/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_DELETE')")
-    public ResultMap<List> deleteMenus(){
+    public ResultMap<List> deleteMenus(@PathVariable Long id){
         return null;
     }
 

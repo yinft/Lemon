@@ -143,4 +143,29 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
         );
         return list;
     }
+
+    @Override
+    public List<Menu> getByPid(long pid) {
+      List<Menu> list = menuDao.selectList(new QueryWrapper<Menu>().eq("pid", pid));
+      return list;
+    }
+
+    @Override
+    public List getMenuTree(List<Menu> menus) {
+        List<Map<String,Object>> list = new LinkedList<>();
+        menus.forEach(menu -> {
+                    if (menu!=null){
+                        List<Menu> menuList = menuDao.selectList(new QueryWrapper<Menu>().eq("pid", menu.getId()));
+                        Map<String,Object> map = new HashMap<>();
+                        map.put("id",menu.getId());
+                        map.put("label",menu.getName());
+                        if(menuList!=null && menuList.size()!=0){
+                            map.put("children",getMenuTree(menuList));
+                        }
+                        list.add(map);
+                    }
+                }
+        );
+        return list;
+    }
 }

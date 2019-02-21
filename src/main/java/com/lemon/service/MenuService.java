@@ -7,6 +7,7 @@ import com.lemon.domain.entity.Permission;
 import com.lemon.domain.entity.Role;
 import com.lemon.domain.vo.MenuVo;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 import java.util.Map;
@@ -29,14 +30,6 @@ public interface MenuService extends IService<Menu> {
     Map buildTree(List<MenuDto> menuDTOS);
 
 
-
-//    /**
-//     * findByRoles
-//     * @param roles
-//     * @return
-//     */
-//    List<MenuDto> findByRoles(Set<Role> roles);
-
     /**
      * getMenusByUserId
      * @param id
@@ -50,4 +43,21 @@ public interface MenuService extends IService<Menu> {
      * @return
      */
     List<MenuVo> buildMenus(List<MenuDto> byRoles);
+
+
+    /**
+     * findByPid
+     * @param pid
+     * @return
+     */
+    @Cacheable(key = "'pid:'+#p0")
+    List<Menu> getByPid(long pid);
+
+    /**
+     * permission tree
+     * @return
+     */
+    @Cacheable(key = "'tree'")
+    List getMenuTree(List<Menu> menus);
+
 }

@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,11 +50,11 @@ public class MenuController {
     private MenuService menuService;
 
     /**
-     * 构建前端路由所需要的菜单
+     * 构建前端组件路由所需要的菜单
      * @return
      */
     @ApiImplicitParam(paramType = "header", name = "Authorization", defaultValue = "Bearer ")
-    @ApiOperation(value = "构建菜单", notes = "构建菜单", consumes = "application/json")
+    @ApiOperation(value = "构建组件路由菜单", notes = "构建组件路由菜单", consumes = "application/json")
     @GetMapping(value = "/menus/build")
     public ResultMap<List<MenuVo>> buildMenus(HttpServletRequest request){
 
@@ -64,6 +65,30 @@ public class MenuController {
 
         return ResultMap.success(menuVoList);
     }
+
+
+    /**
+     * 返回全部的菜单
+     * @return
+     */
+    @ApiImplicitParam(paramType = "header", name = "Authorization", defaultValue = "Bearer ")
+    @ApiOperation(value = "全部菜单", notes = "全部菜单", consumes = "application/json")
+    @GetMapping(value = "/menus/tree")
+    @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_SELECT')")
+    public ResultMap<List> getMenuTree(){
+       List  list=menuService.getMenuTree(menuService.getByPid(0L));
+       return ResultMap.success(list);
+    }
+
+
+//    @ApiImplicitParam(paramType = "header", name = "Authorization", defaultValue = "Bearer ")
+//    @ApiOperation(value = "查询菜单", notes = "查询菜单", consumes = "application/json")
+//    @GetMapping(value = "/menus")
+//    @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_SELECT')")
+//    public ResultMap<List> getMenuTree(){
+//        List  list=menuService.getMenuTree(menuService.getByPid(0L));
+//        return ResultMap.success(list);
+//    }
 
 
 }

@@ -60,4 +60,10 @@ public interface MenuService extends IService<Menu> {
     @Cacheable(key = "'tree'")
     List getMenuTree(List<Menu> menus);
 
+
+
+    @Cacheable(key = "'queryAll:'+#p0")
+    List<MenuDto> getMenusByname(String name);
+
+
 }

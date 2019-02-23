@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lemon.dao.MenuDao;
+import com.lemon.dao.UserDao;
 import com.lemon.domain.dto.MenuDto;
 import com.lemon.domain.entity.Menu;
 import com.lemon.domain.entity.Role;
@@ -15,6 +16,7 @@ import com.lemon.service.RoleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -167,5 +169,20 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
                 }
         );
         return list;
+    }
+
+    @Override
+    public List<MenuDto> getMenusByname(String name) {
+//        if(!ObjectUtils.isEmpty(name)){
+       List<Menu> menuList= menuDao.selectList(new QueryWrapper<Menu>().like("name", name));
+        List<MenuDto> menuDtoList=new ArrayList<>();
+        for (Menu menu:menuList) {
+            MenuDto menuDto=new MenuDto();
+            BeanUtils.copyProperties(menu, menuDto);
+            menuDtoList.add(menuDto);
+        }
+        return menuDtoList;
+//        }
+//        return
     }
 }

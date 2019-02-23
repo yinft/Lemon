@@ -42,11 +42,11 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.0.7.1</version>
         </dependency>
-        <!--durid数据源-->
+        <!-- druid数据源驱动 -->
         <dependency>
             <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.1.12</version>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.10</version>
         </dependency>
         <!-- restful api 文档 swagger2 -->
         <dependency>

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
+import java.util.Map;
 
 
 /**
@@ -73,8 +73,10 @@ public class MenuController {
     @ApiOperation(value = "查询菜单", notes = "查询菜单", consumes = "application/json")
     @GetMapping(value = "/menus")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_SELECT')")
-    public ResultMap<List> getMenus(){
-        return null;
+    public ResultMap<Map> getMenus(@RequestParam String name){
+        List<MenuDto> menuDTOList= menuService.getMenusByname(name);
+       Map map= menuService.buildTree(menuDTOList);
+        return ResultMap.success(map);
     }
 
 

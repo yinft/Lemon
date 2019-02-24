@@ -174,7 +174,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
     @Override
     public List<MenuDto> getMenusByname(String name) {
 //        if(!ObjectUtils.isEmpty(name)){
-       List<Menu> menuList= menuDao.selectList(new QueryWrapper<Menu>().like("name", name));
+       List<Menu> menuList= menuDao.selectList(new QueryWrapper<Menu>().like(!ObjectUtils.isEmpty(name),"name", name));
         List<MenuDto> menuDtoList=new ArrayList<>();
         for (Menu menu:menuList) {
             MenuDto menuDto=new MenuDto();

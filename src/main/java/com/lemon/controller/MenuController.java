@@ -73,7 +73,7 @@ public class MenuController {
     @ApiOperation(value = "查询菜单", notes = "查询菜单", consumes = "application/json")
     @GetMapping(value = "/menus")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_SELECT')")
-    public ResultMap<Map> getMenus(@RequestParam String name){
+    public ResultMap<Map> getMenus(@RequestParam(required = false) String name){
         List<MenuDto> menuDTOList= menuService.getMenusByname(name);
        Map map= menuService.buildTree(menuDTOList);
         return ResultMap.success(map);

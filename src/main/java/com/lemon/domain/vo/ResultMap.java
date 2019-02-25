@@ -44,11 +44,12 @@ public class ResultMap<T> implements Serializable {
             return success(null);
         }
 
-        public static <T> ResultMap<T> error(Integer code, String msg)
+        public static <T> ResultMap<T> error(Integer code, String msg )
         {
             ResultMap<T> resultVO = new ResultMap<>();
             resultVO.setCode(code);
             resultVO.setMsg(msg);
+
             return resultVO;
         }
 

@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,8 +85,10 @@ public class MenuController {
     @ApiOperation(value = "新增菜单", notes = "新增菜单", consumes = "application/json")
     @PostMapping(value = "/menus")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_CREATE')")
-    public ResultMap<List> creatMenus(){
-       return null;
+    public ResultMap<MenuDto> creatMenus(@Validated @RequestBody MenuDto menuDto){
+       MenuDto menuDto1= menuService.create(menuDto);
+
+       return ResultMap.success(menuDto1);
     }
 
 
@@ -93,8 +96,10 @@ public class MenuController {
     @ApiOperation(value = "修改菜单", notes = "修改菜单", consumes = "application/json")
     @PutMapping(value = "/menus")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_EDIT')")
-    public ResultMap<List> updateMenus(){
-        return null;
+    public ResultMap<MenuDto> updateMenus(@Validated @RequestBody MenuDto menuDto){
+        MenuDto menuDto1= menuService.update(menuDto);
+
+        return ResultMap.success(menuDto1);
     }
 
 
@@ -102,8 +107,10 @@ public class MenuController {
     @ApiOperation(value = "删除菜单", notes = "删除菜单", consumes = "application/json")
     @DeleteMapping(value = "/menus/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_DELETE')")
-    public ResultMap<List> deleteMenus(@PathVariable Long id){
-        return null;
+    public ResultMap deleteMenus(@PathVariable Long id){
+        menuService.delete(id);
+
+        return ResultMap.success();
     }
 
 }

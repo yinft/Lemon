@@ -1,6 +1,8 @@
 package com.lemon.config.auth;
 
+import com.lemon.enums.ResultEnum;
 import com.lemon.utils.JwtTokenUtil;
+import com.lemon.utils.exception.BaseException;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,12 +47,13 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
         String authToken = null;
         if (requestHeader != null && requestHeader.startsWith("Bearer ")) {
             authToken = requestHeader.substring(7);
-            try {
-                username = jwtTokenUtil.getUsernameFromToken(authToken);
-            } catch (ExpiredJwtException e) {
-               logger.error(e.getMessage());
-            }
+           try {
+            username = jwtTokenUtil.getUsernameFromToken(authToken);
+        } catch (ExpiredJwtException e) {
+
+            logger.error(e.getMessage());
         }
+    }
 
         logger.debug("checking authentication for user '{}'", username);
 

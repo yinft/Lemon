@@ -185,4 +185,19 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
 //        }
 //        return
     }
+
+    @Override
+    public MenuDto create(MenuDto menuDto) {
+        return null;
+    }
+
+    @Override
+    public MenuDto update(MenuDto menuDto) {
+        return null;
+    }
+
+    @Override
+    public void delete(Long id) {
+
+    }
 }

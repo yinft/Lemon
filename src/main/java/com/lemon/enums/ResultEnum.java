@@ -15,7 +15,8 @@ public enum ResultEnum {
     SYS_ERROR(500, "服务异常"),
     FORBIDDEN(403,"Token令牌无效"),
     UNAUTHORIZED(401,"Token令牌已过期"),
-    USER_DONT_EXISTS(1000000, "用户不存在");
+    USER_DONT_EXISTS(1000000, "用户不存在"),
+    PASSWORD_DONT_EXISTS(1000001, "密码错误");
 
 
 

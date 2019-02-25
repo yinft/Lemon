@@ -48,7 +48,7 @@ public class LoginServiceImpl extends ServiceImpl<UserDao,User> implements UserS
         final UserDetails userDetails = userDetailsService.loadUserByUsername(loginDto.getUsername());
 
         if(!userDetails.getPassword().equals(EncryptUtils.encryptPassword(loginDto.getPassword()))){
-            throw new AccountExpiredException("密码错误");
+            throw new BaseException(ResultEnum.PASSWORD_DONT_EXISTS.getCode(),ResultEnum.PASSWORD_DONT_EXISTS.getMessage());
         }
 
         if(!userDetails.isEnabled()){

@@ -7,6 +7,7 @@ import com.lemon.domain.entity.Permission;
 import com.lemon.domain.entity.Role;
 import com.lemon.domain.vo.MenuVo;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
@@ -65,5 +66,30 @@ public interface MenuService extends IService<Menu> {
     @Cacheable(key = "'queryAll:'+#p0")
     List<MenuDto> getMenusByname(String name);
 
+
+
+    /**
+     * create
+     * @param menuDto
+     * @return
+     */
+    @CacheEvict(allEntries = true)
+    MenuDto create(MenuDto menuDto);
+
+
+    /**
+     * update
+     * @param menuDto
+     */
+    @CacheEvict(allEntries = true)
+    MenuDto update(MenuDto menuDto);
+
+
+    /**
+     * delete
+     * @param id
+     */
+    @CacheEvict(allEntries = true)
+    void delete(Long id);
 
 }

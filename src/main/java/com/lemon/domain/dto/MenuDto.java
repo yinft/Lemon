@@ -4,6 +4,7 @@ import com.lemon.domain.entity.Menu;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.Set;
 public class MenuDto {
     private Long id;
 
+    @NotBlank
     private String name;
 
     private Long sort;

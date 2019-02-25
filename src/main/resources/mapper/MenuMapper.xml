@@ -15,7 +15,7 @@
 		LEFT JOIN role r on ur.role_id=r.id
 		LEFT JOIN menus_roles mr on mr.role_id=r.id
 		LEFT JOIN menu m on m.id =mr.menu_id
-		where u.id=#{id}
+		where u.id =#{id}
 		ORDER BY m.sort
     </select>
 </mapper>

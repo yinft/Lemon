@@ -70,19 +70,19 @@ public interface MenuService extends IService<Menu> {
 
     /**
      * create
-     * @param menuDto
+     * @param menu
      * @return
      */
     @CacheEvict(allEntries = true)
-    MenuDto create(MenuDto menuDto);
+    void create(Menu menu);
 
 
     /**
      * update
-     * @param menuDto
+     * @param menu
      */
     @CacheEvict(allEntries = true)
-    MenuDto update(MenuDto menuDto);
+    void update(Menu menu);
 
 
     /**

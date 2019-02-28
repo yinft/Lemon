@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -29,7 +30,7 @@ public class Menu extends Model<Menu> {
     private Long id;
 
 
-    private Date createTime;
+    private Timestamp createTime;
 
 
     /**

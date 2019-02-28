@@ -11,8 +11,10 @@ import com.lemon.domain.entity.Role;
 import com.lemon.domain.entity.User;
 import com.lemon.domain.vo.MenuMetaVo;
 import com.lemon.domain.vo.MenuVo;
+import com.lemon.enums.ResultEnum;
 import com.lemon.service.MenuService;
 import com.lemon.service.RoleService;
+import com.lemon.utils.exception.BaseException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,10 +81,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
 
         Set<Menu> menuSet = new LinkedHashSet<>(menuDao.getByUserId(id));
 
-        List<MenuDto> menuDtoList=new LinkedList<>();
+        List<MenuDto> menuDtoList = new LinkedList<>();
 
-        for (Menu menu:menuSet) {
-            MenuDto menuDto=new MenuDto();
+        for (Menu menu : menuSet) {
+            MenuDto menuDto = new MenuDto();
             BeanUtils.copyProperties(menu, menuDto);
             menuDtoList.add(menuDto);
         }
@@ -148,21 +150,21 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
 
     @Override
     public List<Menu> getByPid(long pid) {
-      List<Menu> list = menuDao.selectList(new QueryWrapper<Menu>().eq("pid", pid));
-      return list;
+        List<Menu> list = menuDao.selectList(new QueryWrapper<Menu>().eq("pid", pid));
+        return list;
     }
 
     @Override
     public List getMenuTree(List<Menu> menus) {
-        List<Map<String,Object>> list = new LinkedList<>();
+        List<Map<String, Object>> list = new LinkedList<>();
         menus.forEach(menu -> {
-                    if (menu!=null){
+                    if (menu != null) {
                         List<Menu> menuList = menuDao.selectList(new QueryWrapper<Menu>().eq("pid", menu.getId()));
-                        Map<String,Object> map = new HashMap<>();
-                        map.put("id",menu.getId());
-                        map.put("label",menu.getName());
-                        if(menuList!=null && menuList.size()!=0){
-                            map.put("children",getMenuTree(menuList));
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("id", menu.getId());
+                        map.put("label", menu.getName());
+                        if (menuList != null && menuList.size() != 0) {
+                            map.put("children", getMenuTree(menuList));
                         }
                         list.add(map);
                     }
@@ -174,10 +176,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
     @Override
     public List<MenuDto> getMenusByname(String name) {
 //        if(!ObjectUtils.isEmpty(name)){
-       List<Menu> menuList= menuDao.selectList(new QueryWrapper<Menu>().like(!ObjectUtils.isEmpty(name),"name", name));
-        List<MenuDto> menuDtoList=new ArrayList<>();
-        for (Menu menu:menuList) {
-            MenuDto menuDto=new MenuDto();
+        List<Menu> menuList = menuDao.selectList(new QueryWrapper<Menu>().like(!ObjectUtils.isEmpty(name), "name", name));
+        List<MenuDto> menuDtoList = new ArrayList<>();
+        for (Menu menu : menuList) {
+            MenuDto menuDto = new MenuDto();
             BeanUtils.copyProperties(menu, menuDto);
             menuDtoList.add(menuDto);
         }
@@ -187,17 +189,38 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
     }
 
     @Override
-    public MenuDto create(MenuDto menuDto) {
-        return null;
+    public void create(Menu menu) {
+        if (menuDao.selectOne(new QueryWrapper<Menu>().eq("name", menu.getName())) != null) {
+            throw new BaseException(ResultEnum.REPEAD_MENUNAME.getCode(), ResultEnum.REPEAD_MENUNAME.getMessage());
+        }
+        if (menu.getIFrame()) {
+            if (!(menu.getPath().toLowerCase().startsWith("http://") || menu.getPath().toLowerCase().startsWith("https://"))) {
+                throw new BaseException(ResultEnum.URL_NOT_STARTWITHHTTP.getCode(), ResultEnum.URL_NOT_STARTWITHHTTP.getMessage());
+            }
+        }
+
+        menuDao.insert(menu);
     }
 
     @Override
-    public MenuDto update(MenuDto menuDto) {
-        return null;
+    public void update(Menu menu) {
+
+        if (menu.getIFrame()) {
+            if (!(menu.getPath().toLowerCase().startsWith("http://") || menu.getPath().toLowerCase().startsWith("https://"))) {
+                throw new BaseException(ResultEnum.URL_NOT_STARTWITHHTTP.getCode(), ResultEnum.URL_NOT_STARTWITHHTTP.getMessage());
+            }
+        }
+
+
     }
 
     @Override
     public void delete(Long id) {
-
+        List<Menu> menuList = menuDao.selectList(new QueryWrapper<Menu>().eq("pid", id));
+        for (Menu menu : menuList) {
+            menuDao.delete(new QueryWrapper<>(menu));
+        }
+        menuDao.deleteById(id);
     }
 }
+

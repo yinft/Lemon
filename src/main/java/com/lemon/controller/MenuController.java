@@ -1,12 +1,15 @@
 package com.lemon.controller;
 
 import com.lemon.domain.dto.MenuDto;
+import com.lemon.domain.entity.Menu;
 import com.lemon.domain.entity.User;
 import com.lemon.domain.vo.MenuVo;
 import com.lemon.domain.vo.ResultMap;
+import com.lemon.enums.ResultEnum;
 import com.lemon.service.MenuService;
 import com.lemon.service.UserService;
 import com.lemon.utils.JwtTokenUtil;
+import com.lemon.utils.exception.BaseException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -85,10 +89,12 @@ public class MenuController {
     @ApiOperation(value = "新增菜单", notes = "新增菜单", consumes = "application/json")
     @PostMapping(value = "/menus")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_CREATE')")
-    public ResultMap<MenuDto> creatMenus(@Validated @RequestBody MenuDto menuDto){
-       MenuDto menuDto1= menuService.create(menuDto);
-
-       return ResultMap.success(menuDto1);
+    public ResultMap creatMenus(@Validated @RequestBody Menu menu){
+        if (menu.getId() != null) {
+            throw new BaseException(ResultEnum.REPEAD_ID.getCode(),ResultEnum.REPEAD_ID.getMessage());
+        }
+      menuService.create(menu);
+       return ResultMap.success();
     }
 
 
@@ -96,10 +102,12 @@ public class MenuController {
     @ApiOperation(value = "修改菜单", notes = "修改菜单", consumes = "application/json")
     @PutMapping(value = "/menus")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_EDIT')")
-    public ResultMap<MenuDto> updateMenus(@Validated @RequestBody MenuDto menuDto){
-        MenuDto menuDto1= menuService.update(menuDto);
-
-        return ResultMap.success(menuDto1);
+    public ResultMap updateMenus(@Validated @RequestBody Menu menu){
+        if (menu.getId() == null) {
+            throw new BaseException(ResultEnum.NULL_ID.getCode(),ResultEnum.NULL_ID.getMessage());
+        }
+        menuService.update(menu);
+        return ResultMap.success();
     }
 
 
@@ -109,7 +117,6 @@ public class MenuController {
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_DELETE')")
     public ResultMap deleteMenus(@PathVariable Long id){
         menuService.delete(id);
-
         return ResultMap.success();
     }
 

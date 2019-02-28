@@ -1,6 +1,7 @@
 package com.lemon.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.lemon.domain.dto.MenuDto;
 import com.lemon.domain.entity.Menu;
 import com.lemon.domain.entity.Role;
 import org.springframework.data.repository.query.Param;
@@ -26,5 +27,7 @@ public interface MenuDao extends BaseMapper<Menu> {
     Set<Menu> findByRolesOrderBySort(Set<Role> roleSet);
 
     LinkedHashSet<Menu> getByUserId(@Param("id") Long id);
+
+    void save(MenuDto menuDto);
 
 }

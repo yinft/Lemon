@@ -30,7 +30,7 @@ public class Menu extends Model<Menu> {
     private Long id;
 
 
-    private Timestamp createTime;
+    private Date createTime;
 
 
     /**

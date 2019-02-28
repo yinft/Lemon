@@ -210,8 +210,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
                 throw new BaseException(ResultEnum.URL_NOT_STARTWITHHTTP.getCode(), ResultEnum.URL_NOT_STARTWITHHTTP.getMessage());
             }
         }
-
-
+        menuDao.updateById(menu);
+//       menuDao.update(menu,new QueryWrapper<>(menu));
     }
 
     @Override

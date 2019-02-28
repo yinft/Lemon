@@ -38,7 +38,7 @@ public class MenuDto {
 
     private List<MenuDto> children;
 
-    private Timestamp createTime;
+    private Date createTime;
 
 
 

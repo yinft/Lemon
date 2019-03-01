@@ -7,7 +7,7 @@ import com.lemon.domain.vo.MenuVo;
 import com.lemon.domain.vo.ResultMap;
 import com.lemon.enums.ResultEnum;
 import com.lemon.service.MenuService;
-import com.lemon.service.UserService;
+import com.lemon.service.LoginService;
 import com.lemon.utils.JwtTokenUtil;
 import com.lemon.utils.exception.BaseException;
 import io.swagger.annotations.Api;
@@ -20,7 +20,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +36,7 @@ import java.util.Map;
 public class MenuController {
 
     @Autowired
-    private UserService userService;
+    private LoginService userService;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;

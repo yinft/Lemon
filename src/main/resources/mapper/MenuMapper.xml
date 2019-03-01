@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lemon.dao.MenuDao">
+    <insert id="save"></insert>
 
 
     <select id="findByRolesOrderBySort" resultType="com.lemon.domain.entity.Menu">

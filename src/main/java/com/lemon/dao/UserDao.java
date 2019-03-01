@@ -15,10 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao extends BaseMapper<User> {
 
-    UserVo findByUsername(@Param("username") String username);
 
-
-    UserVo findByEmail(@Param("email") String username);
 
 
 }

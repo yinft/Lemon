@@ -2,6 +2,10 @@ package com.lemon.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lemon.domain.entity.Role;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -12,6 +16,12 @@ import com.lemon.domain.entity.Role;
 
 public interface RoleService extends IService<Role> {
 
-
+    /**
+     * role tree
+     *
+     * @return
+     */
+    @Cacheable(key = "'tree'")
+    List getRoleTree();
 
 }

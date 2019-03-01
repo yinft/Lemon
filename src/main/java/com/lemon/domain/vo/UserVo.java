@@ -1,5 +1,6 @@
 package com.lemon.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lemon.domain.entity.Role;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +33,7 @@ public class UserVo {
 
     private String email;
 
-
+    @JsonIgnore
     private String password;
 
 
@@ -41,26 +42,5 @@ public class UserVo {
 
     private Boolean enabled;
 
-    private Set<Role> roles;
-
-
-
-    public UserVo(RoleVo roleVo) {
-        BeanUtils.copyProperties(roleVo, this);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", email='" + email + '\'' +
-                ", enabled=" + enabled +
-                ", password='" + password + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
-    }
 
 }

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lemon.common.untils.ValidationUtil;
 import com.lemon.config.auth.JwtUser;
 import com.lemon.enums.ResultEnum;
-import com.lemon.service.UserService;
+import com.lemon.service.LoginService;
 import com.lemon.dao.UserDao;
 import com.lemon.domain.dto.JwtAuthenticationDto;
 import com.lemon.domain.dto.LoginDto;
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Version 1.0
  */
 @Service
-public class LoginServiceImpl extends ServiceImpl<UserDao,User> implements UserService {
+public class LoginServiceImpl extends ServiceImpl<UserDao,User> implements LoginService {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -84,4 +84,6 @@ public class LoginServiceImpl extends ServiceImpl<UserDao,User> implements UserS
             return user;
         }
     }
+
+
 }

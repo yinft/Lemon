@@ -1,17 +1,15 @@
 package com.lemon.controller;
 
 import com.lemon.config.auth.JwtUser;
-import com.lemon.service.UserService;
+import com.lemon.service.LoginService;
 import com.lemon.domain.dto.JwtAuthenticationDto;
 import com.lemon.domain.dto.LoginDto;
 import com.lemon.domain.vo.ResultMap;
-import com.lemon.utils.JwtTokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +27,7 @@ import javax.validation.Valid;
 public class AuthController {
 
     @Autowired
-    private UserService userService;
+    private LoginService userService;
 
 
 

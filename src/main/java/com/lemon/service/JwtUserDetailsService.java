@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
  * @Version 1.0
  */
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+//@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class JwtUserDetailsService  implements UserDetailsService {
 
     @Autowired

@@ -2,6 +2,8 @@ package com.lemon.domain.vo;
 
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.lemon.common.constant.Constants;
 import com.lemon.domain.entity.Menu;
 import com.lemon.domain.entity.Permission;
 import com.lemon.domain.entity.User;
@@ -26,7 +28,7 @@ public class RoleVo {
 
     private String name;
 
-
+    @JsonFormat(pattern = Constants.DEFAULT_DATE_PATTERN, timezone = "GMT+8")
     private Date createTime;
 
 

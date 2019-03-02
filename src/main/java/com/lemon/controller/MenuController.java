@@ -1,5 +1,6 @@
 package com.lemon.controller;
 
+import com.lemon.common.constant.Constants;
 import com.lemon.domain.dto.MenuDto;
 import com.lemon.domain.entity.Menu;
 import com.lemon.domain.entity.User;
@@ -48,7 +49,7 @@ public class MenuController {
      * 构建前端组件路由所需要的菜单
      * @return
      */
-    @ApiImplicitParam(paramType = "header", name = "Authorization", defaultValue = "Bearer ")
+    @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")
     @ApiOperation(value = "构建前端组件路由菜单", notes = "构建前端组件路由菜单", consumes = "application/json")
     @GetMapping(value = "/menus/build")
     public ResultMap<List<MenuVo>> buildMenus(HttpServletRequest request){
@@ -62,7 +63,7 @@ public class MenuController {
      * 返回全部的菜单
      * @return
      */
-    @ApiImplicitParam(paramType = "header", name = "Authorization", defaultValue = "Bearer ")
+    @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")
     @ApiOperation(value = "全部菜单", notes = "全部菜单", consumes = "application/json")
     @GetMapping(value = "/menus/tree")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_SELECT')")
@@ -73,7 +74,7 @@ public class MenuController {
 
 
 
-    @ApiImplicitParam(paramType = "header", name = "Authorization", defaultValue = "Bearer ")
+    @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")
     @ApiOperation(value = "查询菜单", notes = "查询菜单", consumes = "application/json")
     @GetMapping(value = "/menus")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_SELECT')")
@@ -84,7 +85,7 @@ public class MenuController {
     }
 
 
-    @ApiImplicitParam(paramType = "header", name = "Authorization", defaultValue = "Bearer ")
+    @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")
     @ApiOperation(value = "新增菜单", notes = "新增菜单", consumes = "application/json")
     @PostMapping(value = "/menus")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_CREATE')")
@@ -97,7 +98,7 @@ public class MenuController {
     }
 
 
-    @ApiImplicitParam(paramType = "header", name = "Authorization", defaultValue = "Bearer ")
+    @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")
     @ApiOperation(value = "修改菜单", notes = "修改菜单", consumes = "application/json")
     @PutMapping(value = "/menus")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_EDIT')")
@@ -110,7 +111,7 @@ public class MenuController {
     }
 
 
-    @ApiImplicitParam(paramType = "header", name = "Authorization", defaultValue = "Bearer ")
+    @ApiImplicitParam(paramType = "header",name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")
     @ApiOperation(value = "删除菜单", notes = "删除菜单", consumes = "application/json")
     @DeleteMapping(value = "/menus/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_DELETE')")

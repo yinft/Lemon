@@ -1,6 +1,9 @@
 package com.lemon.domain.vo;
 
+import cn.hutool.core.date.DateTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lemon.common.constant.Constants;
 import com.lemon.domain.entity.Role;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,17 +27,15 @@ public class UserVo {
 
     private String avatar;
 
-
+    @JsonFormat(pattern = Constants.DEFAULT_DATE_PATTERN, timezone = "GMT+8")
     private Date createTime;
 
-
+    @JsonFormat(pattern = Constants.DEFAULT_DATE_PATTERN, timezone = "GMT+8")
     private Date updateTime;
 
 
     private String email;
 
-    @JsonIgnore
-    private String password;
 
 
     private String username;

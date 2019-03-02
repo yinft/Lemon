@@ -26,7 +26,7 @@ public interface MenuDao extends BaseMapper<Menu> {
      */
     Set<Menu> findByRolesOrderBySort(Set<Role> roleSet);
 
-    LinkedHashSet<Menu> getByUserId(@Param("id") Long id);
+    LinkedHashSet<Menu> getByUserId(Long id);
 
     void save(MenuDto menuDto);
 

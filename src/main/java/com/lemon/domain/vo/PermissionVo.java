@@ -2,6 +2,8 @@ package com.lemon.domain.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.lemon.common.constant.Constants;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,7 +25,7 @@ public class PermissionVo {
 
     private String alias;
 
-
+    @JsonFormat(pattern = Constants.DEFAULT_DATE_PATTERN, timezone = "GMT+8")
     private Date createTime;
 
 

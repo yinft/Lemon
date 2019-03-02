@@ -1,5 +1,6 @@
 package com.lemon.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lemon.domain.entity.Menu;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
@@ -38,6 +39,7 @@ public class MenuDto {
 
     private List<MenuDto> children;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
 

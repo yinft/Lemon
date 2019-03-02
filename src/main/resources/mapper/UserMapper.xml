@@ -40,6 +40,13 @@
 
         select id,username,avatar,createTime,email,enabled,updateTime FROM user
         <include refid="whereSql"></include>
+
+        <if test="u.timeSort == 'asc'">
+            ORDER BY  user.createTime ASC
+        </if>
+        <if test="u.timeSort == 'desc'">
+            ORDER BY  user.createTime DESC
+        </if>
     </select>
 
     <sql id="whereSql">

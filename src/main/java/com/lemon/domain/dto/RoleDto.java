@@ -1,6 +1,7 @@
 package com.lemon.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -13,12 +14,10 @@ import java.util.Set;
  */
 @Data
 public class RoleDto {
-    private Long id;
 
+    @ApiModelProperty("角色名")
     private String name;
 
-    private String remark;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Timestamp createTime;
+    @ApiModelProperty("根据创建时间排序，正序：asc，倒序：desc，不传或者传null则不排序")
+    private String timeSort;
 }

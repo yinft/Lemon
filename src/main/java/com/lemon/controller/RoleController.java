@@ -3,6 +3,7 @@ package com.lemon.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lemon.common.constant.Constants;
+import com.lemon.domain.dto.PageParamDTO;
 import com.lemon.domain.dto.RoleDto;
 import com.lemon.domain.dto.UserDto;
 import com.lemon.domain.entity.Role;
@@ -58,8 +59,8 @@ public class RoleController {
     @ApiOperation(value = "查询角色", notes = "查询角色", consumes = "application/json")
     @GetMapping(value = "/roles")
     @PreAuthorize("hasAnyRole('ADMIN','ROLES_ALL','ROLES_SELECT')")
-    public ResultMap<IPage<Role>> getRoles(Page<Role> page, String name){
-        IPage<Role> rolePage=roleService.getRolePage(page,name);
+    public ResultMap<IPage<Role>> getRoles(PageParamDTO pageParamDTO, RoleDto roleDto){
+        IPage<Role> rolePage=roleService.getRolePage(pageParamDTO,roleDto);
         return ResultMap.success(rolePage);
     }
 

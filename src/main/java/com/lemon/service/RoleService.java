@@ -3,6 +3,7 @@ package com.lemon.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lemon.domain.dto.PageParamDTO;
 import com.lemon.domain.dto.RoleDto;
 import com.lemon.domain.dto.UserDto;
 import com.lemon.domain.entity.Role;
@@ -35,7 +36,7 @@ public interface RoleService extends IService<Role> {
      * 分页
      */
 
-    IPage<Role> getRolePage(Page<Role> page, String name);
+    IPage<Role> getRolePage(PageParamDTO pageParamDTO, RoleDto roleDto);
 
 /**
 * 新增角色

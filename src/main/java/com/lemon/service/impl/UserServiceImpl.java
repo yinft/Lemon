@@ -28,13 +28,14 @@ public class UserServiceImpl extends ServiceImpl<UserDao,User> implements UserSe
 @Autowired
 private UserDao userDao;
 
-UserService userService;
 
     @Override
-    public IPage<UserVo> getUserPage(PageParamDTO pageParamDTO, UserDto userDto) {
-        Page<UserVo> page =new Page<>(pageParamDTO.getPage(),pageParamDTO.getSize());
+    public IPage<UserVo> getUserPage(PageParamDTO pageParamDTO,UserDto userDTO) {
 
-        IPage<UserVo> iPage= userDao.page(page,userDto);
+
+        Page<UserVo> myPage =new Page<>(pageParamDTO.getCurrent(),pageParamDTO.getSize());
+
+        IPage<UserVo> iPage= userDao.page(myPage, userDTO);
         return iPage;
     }
 }

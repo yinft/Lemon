@@ -18,6 +18,6 @@ import com.lemon.domain.vo.UserVo;
 
 public interface UserService extends IService<User> {
 
-    IPage<UserVo> getUserPage(PageParamDTO pageParamDTO, UserDto userDto);
+    IPage<UserVo> getUserPage(PageParamDTO pageParamDTO,UserDto userDto);
 
 }

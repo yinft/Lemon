@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lemon.dao.RoleDao;
+import com.lemon.domain.dto.PageParamDTO;
 import com.lemon.domain.dto.RoleDto;
 import com.lemon.domain.entity.Role;
+import com.lemon.enums.ResultEnum;
 import com.lemon.service.RoleService;
 import com.lemon.utils.exception.BaseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,15 +50,20 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
     }
 
     @Override
-    public IPage<Role> getRolePage(Page<Role> page, String name) {
-        IPage iPage=roleDao.selectPage(page,new QueryWrapper<Role>().like(!ObjectUtils.isEmpty(name), "name", name));
+    public IPage<Role> getRolePage(PageParamDTO pageParamDTO, RoleDto roleDto) {
+        Page<Role> myPage= new Page<>(pageParamDTO.getCurrent(),pageParamDTO.getSize());
+        IPage iPage=roleDao.selectPage(myPage,new QueryWrapper<Role>()
+                .like(!ObjectUtils.isEmpty(roleDto.getName()), "name", roleDto.getName())
+                .orderByAsc(!ObjectUtils.isEmpty(roleDto.getTimeSort()) && roleDto.getTimeSort().equals("asc"),"createTime")
+                .orderByDesc(!ObjectUtils.isEmpty(roleDto.getTimeSort()) &&roleDto.getTimeSort().equals("desc"),"createTime")
+        );
         return iPage;
     }
 
     @Override
     public void insert(Role role) {
         if(roleDao.selectOne(new QueryWrapper<Role>().eq("name",role.getName()))!=null ){
-            throw new BaseException(110,"角色名重复");
+            throw new BaseException(ResultEnum.REPEAD_ROLENAME.getCode(),ResultEnum.REPEAD_ROLENAME.getMessage());
         }
         roleDao.insert(role);
     }

@@ -20,7 +20,8 @@ public enum ResultEnum {
     REPEAD_ID(2000001,"重复的id"),
     NULL_ID(2000002,"id不能为空"),
     REPEAD_MENUNAME(3000001,"重复的菜单名"),
-    URL_NOT_STARTWITHHTTP(3000002,"外链必须以http://或者https://开头");
+    URL_NOT_STARTWITHHTTP(3000002,"外链必须以http://或者https://开头"),
+    REPEAD_ROLENAME(4000001,"重复的角色名");
 
 
 

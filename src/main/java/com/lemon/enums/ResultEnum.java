@@ -21,8 +21,10 @@ public enum ResultEnum {
     NULL_ID(2000002,"id不能为空"),
     REPEAD_MENUNAME(3000001,"重复的菜单名"),
     URL_NOT_STARTWITHHTTP(3000002,"外链必须以http://或者https://开头"),
-    REPEAD_ROLENAME(4000001,"重复的角色名");
-
+    REPEAD_ROLENAME(4000001,"重复的角色名"),
+    CAN_NOT_UPDATEROLE(4000002,"超级管理员无法修改"),
+    RELE_NOT_EXIST(4000003,"角色不存在"),
+    CAN_NOT_DELETEROLE(4000004,"超级管理员无法删除");
 
 
     private Integer code;

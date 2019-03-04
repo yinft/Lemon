@@ -9,7 +9,9 @@ import com.lemon.domain.dto.UserDto;
 import com.lemon.domain.entity.Role;
 import com.lemon.domain.vo.ResultMap;
 import com.lemon.domain.vo.UserVo;
+import com.lemon.enums.ResultEnum;
 import com.lemon.service.RoleService;
+import com.lemon.utils.exception.BaseException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -81,9 +83,12 @@ public class RoleController {
     @ApiOperation(value = "修改角色", notes = "修改角色", consumes = "application/json")
     @PutMapping(value = "/roles")
     @PreAuthorize("hasAnyRole('ADMIN','ROLES_ALL','ROLES_EDIT')")
-    public ResultMap<List> update(){
-        List list=roleService.getRoleTree();
-        return ResultMap.success(list);
+    public ResultMap<List> update(@Validated @RequestBody Role role){
+        if (role.getId() == null) {
+            throw new BaseException(ResultEnum.NULL_ID.getCode(),ResultEnum.NULL_ID.getMessage());
+        }
+        roleService.update(role);
+        return ResultMap.success();
     }
 
 
@@ -92,8 +97,8 @@ public class RoleController {
     @ApiOperation(value = "删除角色", notes = "删除角色", consumes = "application/json")
     @DeleteMapping(value = "/roles/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','ROLES_ALL','ROLES_DELETE')")
-    public ResultMap<List> delete(){
-        List list=roleService.getRoleTree();
-        return ResultMap.success(list);
+    public ResultMap<List> delete(@PathVariable Long id){
+        roleService.delete(id);
+        return ResultMap.success();
     }
 }

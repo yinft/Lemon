@@ -9,6 +9,7 @@ import com.lemon.domain.dto.UserDto;
 import com.lemon.domain.entity.Role;
 import com.lemon.domain.vo.UserVo;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +39,22 @@ public interface RoleService extends IService<Role> {
 
     IPage<Role> getRolePage(PageParamDTO pageParamDTO, RoleDto roleDto);
 
-/**
-* 新增角色
-*/
-void insert(Role role);
+    /**
+     * 新增角色
+     */
+    void insert(Role role);
+
+
+    /**
+     * 更新角色
+     */
+    void update(Role role);
+
+    /**
+     * 删除角色
+     */
+    @CacheEvict(allEntries = true)
+    void delete(Long id);
+
+
 }

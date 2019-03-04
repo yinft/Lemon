@@ -42,8 +42,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
         List<Map<String, Object>> list = new ArrayList<>();
         for (Role role : roleList) {
             Map<String, Object> map = new HashMap<>();
-            map.put("id",role.getId());
-            map.put("label",role.getName());
+            map.put("id", role.getId());
+            map.put("label", role.getName());
             list.add(map);
         }
         return list;
@@ -51,20 +51,48 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
 
     @Override
     public IPage<Role> getRolePage(PageParamDTO pageParamDTO, RoleDto roleDto) {
-        Page<Role> myPage= new Page<>(pageParamDTO.getCurrent(),pageParamDTO.getSize());
-        IPage iPage=roleDao.selectPage(myPage,new QueryWrapper<Role>()
+        Page<Role> myPage = new Page<>(pageParamDTO.getCurrent(), pageParamDTO.getSize());
+        IPage iPage = roleDao.selectPage(myPage, new QueryWrapper<Role>()
                 .like(!ObjectUtils.isEmpty(roleDto.getName()), "name", roleDto.getName())
-                .orderByAsc(!ObjectUtils.isEmpty(roleDto.getTimeSort()) && roleDto.getTimeSort().equals("asc"),"createTime")
-                .orderByDesc(!ObjectUtils.isEmpty(roleDto.getTimeSort()) &&roleDto.getTimeSort().equals("desc"),"createTime")
+                .orderByAsc(!ObjectUtils.isEmpty(roleDto.getTimeSort()) && roleDto.getTimeSort().equals("asc"), "createTime")
+                .orderByDesc(!ObjectUtils.isEmpty(roleDto.getTimeSort()) && roleDto.getTimeSort().equals("desc"), "createTime")
         );
         return iPage;
     }
 
     @Override
     public void insert(Role role) {
-        if(roleDao.selectOne(new QueryWrapper<Role>().eq("name",role.getName()))!=null ){
-            throw new BaseException(ResultEnum.REPEAD_ROLENAME.getCode(),ResultEnum.REPEAD_ROLENAME.getMessage());
+        if (roleDao.selectOne(new QueryWrapper<Role>().eq("name", role.getName())) != null) {
+            throw new BaseException(ResultEnum.REPEAD_ROLENAME.getCode(), ResultEnum.REPEAD_ROLENAME.getMessage());
         }
         roleDao.insert(role);
+    }
+
+    @Override
+    public void update(Role role) {
+        /**
+         * 根据实际需求,超级管理员无法修改
+         */
+        if (role.getId().equals(1L)) {
+            throw new BaseException(ResultEnum.CAN_NOT_UPDATEROLE.getCode(), ResultEnum.CAN_NOT_UPDATEROLE.getMessage());
+        }
+
+        if (roleDao.selectById(role.getId()) == null) {
+            throw new BaseException(ResultEnum.RELE_NOT_EXIST.getCode(), ResultEnum.RELE_NOT_EXIST.getMessage());
+        }
+
+        roleDao.updateById(role);
+
+    }
+
+    @Override
+    public void delete(Long id) {
+        /**
+         * 根据实际需求,超级管理员无法删除
+         */
+        if (id.equals(1L)) {
+            throw new BaseException(ResultEnum.CAN_NOT_DELETEROLE.getCode(), ResultEnum.CAN_NOT_DELETEROLE.getMessage());
+        }
+        roleDao.deleteById(id);
     }
 }

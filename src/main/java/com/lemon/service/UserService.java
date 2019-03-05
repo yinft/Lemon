@@ -8,6 +8,7 @@ import com.lemon.domain.dto.PageParamDTO;
 import com.lemon.domain.dto.UserDto;
 import com.lemon.domain.entity.User;
 import com.lemon.domain.vo.UserVo;
+import org.springframework.cache.annotation.CacheEvict;
 
 
 /**
@@ -19,5 +20,14 @@ import com.lemon.domain.vo.UserVo;
 public interface UserService extends IService<User> {
 
     IPage<UserVo> getUserPage(PageParamDTO pageParamDTO,UserDto userDto);
+
+
+
+    /**
+     * delete
+     * @param id
+     */
+    @CacheEvict(allEntries = true)
+    void delete(Long id);
 
 }

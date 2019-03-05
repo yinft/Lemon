@@ -24,7 +24,8 @@ public enum ResultEnum {
     REPEAD_ROLENAME(4000001,"重复的角色名"),
     CAN_NOT_UPDATEROLE(4000002,"超级管理员无法修改"),
     RELE_NOT_EXIST(4000003,"角色不存在"),
-    CAN_NOT_DELETEROLE(4000004,"超级管理员无法删除");
+    CAN_NOT_DELETEROLE(4000004,"超级管理员无法删除"),
+    CAN_NOT_DELETACCOUNT(4000004,"账号无法删除");
 
 
     private Integer code;

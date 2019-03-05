@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -58,5 +59,16 @@ public class UserController {
       return null;
     }
 
+
+
+
+    @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")
+    @ApiOperation(value = "删除用户", notes = "删除用户", consumes = "application/json")
+    @DeleteMapping(value = "/users/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','USER_ALL','USER_DELETE')")
+    public ResultMap delete(@PathVariable Long id){
+        userService.delete(id);
+        return ResultMap.success();
+    }
 
 }

@@ -15,7 +15,6 @@
  - **IDE** ：IntelliJ IDEA (后端)
  - **依赖管理** ：Maven
  - **数据库** ：mysql 5.7
- - **缓存数据库** ：Redis
  
  ## 功能模块
  暂未完成

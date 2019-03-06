@@ -3,7 +3,7 @@
  
   之前看到码云上还有github上很多关于前后端分离的shiro+springboot的很好的例子，发现没有springsecurity的，所以就找了一下，发现有个作者写的挺好的，作者的GitHub和码云就是下方前端源码的作者。但是那个作者的后端项目用的持久层框架是jpa，不是我擅长的mybatis,也不易于拓展，于是就萌生了自己写一套的想法。
  
-  项目基于 Spring Boot 2.1.0 、 mybatis-plus3.x、 Spring Security、redis、Vue的前后端分离的权限管理系统，项目采用分模块开发方式， 权限控制采用 RBAC（Role-Based Access Control，基于角色的访问控制），前端菜单支持动态路由
+  项目基于 Spring Boot 2.1.0 、 mybatis-plus3.x、 Spring Security、redis、Vue的前后端分离的权限管理系统，暂未采用分模块开发方式，还不支持分布式微服务，权限控制采用 RBAC（Role-Based Access Control，基于角色的访问控制），前端菜单支持动态路由
  
  ## 前端源码
  前端源码暂时参考eladmin-qt，地址如下项目：

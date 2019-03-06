@@ -33,4 +33,5 @@
  调整权限框架，将shiro改为spring security,为以后上spring cloud打基础。
 
 ### 反馈交流
-840013505@qq.com
+需要数据库sql的请联系：840013505@qq.com
+

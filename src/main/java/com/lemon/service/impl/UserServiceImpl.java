@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lemon.dao.UserDao;
 import com.lemon.domain.dto.PageParamDTO;
+import com.lemon.domain.dto.UserAddDTO;
 import com.lemon.domain.dto.UserDto;
 import com.lemon.domain.entity.Menu;
 import com.lemon.domain.entity.User;
@@ -38,6 +39,19 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         return iPage;
     }
 
+    @Override
+    public void create(UserAddDTO userAddDTO) {
+        if (userDao.selectOne(new QueryWrapper<User>().eq("username", userAddDTO.getUsername())) != null) {
+
+            throw new BaseException(ResultEnum.REPEAD_USERNAME.getCode(), ResultEnum.REPEAD_USERNAME.getMessage());
+        }
+        if (userDao.selectOne(new QueryWrapper<User>().eq("email", userAddDTO.getEmail())) != null) {
+            throw new BaseException(ResultEnum.REPEAD_EMAIL.getCode(), ResultEnum.REPEAD_EMAIL.getMessage());
+        }
+
+
+    }
+
 
     @Override
     public void delete(Long id) {
@@ -48,5 +62,17 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             throw new BaseException(ResultEnum.CAN_NOT_DELETACCOUNT.getCode(), ResultEnum.CAN_NOT_DELETACCOUNT.getMessage());
         }
         userDao.deleteById(id);
+    }
+
+    @Override
+    public void update(User user) {
+        /**
+         * 根据实际需求,超级管理员用户无法修改
+         */
+        if (user.getId().equals(1L)) {
+            throw new BaseException(ResultEnum.CAN_NOT_UPDATEACCOUNT.getCode(), ResultEnum.CAN_NOT_UPDATEACCOUNT.getMessage());
+        }
+        userDao.updateById(user);
+
     }
 }

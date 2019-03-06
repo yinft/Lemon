@@ -25,8 +25,10 @@ public enum ResultEnum {
     CAN_NOT_UPDATEROLE(4000002,"超级管理员无法修改"),
     RELE_NOT_EXIST(4000003,"角色不存在"),
     CAN_NOT_DELETEROLE(4000004,"超级管理员无法删除"),
-    CAN_NOT_DELETACCOUNT(4000004,"账号无法删除");
-
+    CAN_NOT_DELETACCOUNT(4000005,"该账号无法删除"),
+    CAN_NOT_UPDATEACCOUNT(4000006,"该账号无法更新"),
+    REPEAD_USERNAME(4000007,"重复的用户名"),
+    REPEAD_EMAIL(4000008,"重复的邮箱名");
 
     private Integer code;
 

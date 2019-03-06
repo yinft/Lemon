@@ -4,11 +4,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lemon.common.constant.Constants;
 import com.lemon.domain.dto.PageParamDTO;
+import com.lemon.domain.dto.UserAddDTO;
 import com.lemon.domain.dto.UserDto;
 import com.lemon.domain.entity.User;
 import com.lemon.domain.vo.ResultMap;
 import com.lemon.domain.vo.UserVo;
+import com.lemon.enums.ResultEnum;
 import com.lemon.service.UserService;
+import com.lemon.utils.exception.BaseException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -43,9 +46,7 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ADMIN','USER_ALL','USER_SELECT')")
     public ResultMap<IPage<UserVo>> getUsers(PageParamDTO pageParamDTO, UserDto userDto){
 
-
         IPage<UserVo> userVoPage=userService.getUserPage(pageParamDTO,userDto);
-
         return ResultMap.success(userVoPage);
 
     }
@@ -55,11 +56,24 @@ public class UserController {
     @ApiOperation(value = "新增用户", notes = "新增用户", consumes = "application/json")
     @PostMapping(value = "/users")
     @PreAuthorize("hasAnyRole('ADMIN','USER_ALL','USER_CREATE')")
-    public ResponseEntity create(@Validated @RequestBody User resources){
-      return null;
+    public ResultMap create(@Validated @RequestBody UserAddDTO userAddDTO){
+        userService.create(userAddDTO);
+
+      return ResultMap.success( );
     }
 
 
+    @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")
+    @ApiOperation(value = "修改用户", notes = "修改用户", consumes = "application/json")
+    @PutMapping(value = "/users")
+    @PreAuthorize("hasAnyRole('ADMIN','USER_ALL','USER_EDIT')")
+    public ResultMap update(@Validated @RequestBody User user){
+        if (user.getId() == null) {
+            throw new BaseException(ResultEnum.NULL_ID.getCode(),ResultEnum.NULL_ID.getMessage());
+        }
+        userService.update(user);
+        return new ResultMap();
+    }
 
 
     @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")

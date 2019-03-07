@@ -14,6 +14,10 @@
         <!--<result column="name" property="name"/>-->
         <!--</collection>-->
     </resultMap>
+    <insert id="insertAndGetId" useGeneratedKeys="true" keyProperty="id">
+ insert into user(username,email,password,avatar,enabled)
+    values(#{username},#{email},#{password},#{avatar},#{enabled})
+    </insert>
 
 
     <!--<select id="findByEmail"  resultType="com.lemon.domain.vo.UserVo">-->

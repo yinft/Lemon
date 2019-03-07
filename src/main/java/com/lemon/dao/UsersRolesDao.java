@@ -10,4 +10,5 @@ import com.lemon.domain.entity.UsersRoles;
  * @Version 1.0
  */
 public interface UsersRolesDao extends BaseMapper<UsersRoles> {
+
 }

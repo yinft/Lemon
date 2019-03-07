@@ -1,6 +1,7 @@
 package com.lemon.domain.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.Date;
@@ -13,23 +14,9 @@ import java.util.List;
  */
 @Data
 public class UserAddDTO {
-    private Long id;
 
-
-    /**
-     * 创建时间
-     */
-
-    @TableField("createTime")
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    @TableField("updateTime")
-    private Date updateTime;
-
-
+    @JsonIgnore
+    Long id;
     /**
      * 邮箱
      */
@@ -41,6 +28,18 @@ public class UserAddDTO {
     private String username;
 
     /**
+     * 密码
+     */
+    @JsonIgnore
+    private String password;
+
+    /**
+     * 密码
+     */
+    @JsonIgnore
+    private String avatar;
+
+    /**
      * 账户状态
      */
     private Boolean enabled;
@@ -48,5 +47,5 @@ public class UserAddDTO {
     /**
      * 角色id集合
      */
-    private List roleIds;
+    private List<Long> roleIds;
 }

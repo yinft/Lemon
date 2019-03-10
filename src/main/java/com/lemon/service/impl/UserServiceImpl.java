@@ -68,10 +68,12 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         userAddDTO.setPassword(PASSWORD);
         userAddDTO.setAvatar(AVATAR);
         userDao.insertAndGetId(userAddDTO);
+        if (userAddDTO.getRoleIds().size()==0){
+
+            throw new BaseException(ResultEnum.NULL_ROLENAME.getCode(), ResultEnum.NULL_ROLENAME.getMessage());
+        }
         insertUserRole(userAddDTO.getId(), userAddDTO.getRoleIds());
 
-        String [] sum2 = {"张山","历史","你好","哈哈"};
-        System.out.println(sum2);
     }
 
 
@@ -104,18 +106,29 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         if (id.equals(1L)) {
             throw new BaseException(ResultEnum.CAN_NOT_DELETACCOUNT.getCode(), ResultEnum.CAN_NOT_DELETACCOUNT.getMessage());
         }
+//        删除用户角色关联
+        usersRolesService.remove(new QueryWrapper<UsersRoles>().eq("user_id", id));
         userDao.deleteById(id);
     }
 
     @Override
-    public void update(User user) {
+    @Transactional(rollbackFor = Exception.class)
+    public void update(UserAddDTO userAddDTO) {
         /**
          * 根据实际需求,超级管理员用户无法修改
          */
-        if (user.getId().equals(1L)) {
+        if (userAddDTO.getId().equals(1L)) {
             throw new BaseException(ResultEnum.CAN_NOT_UPDATEACCOUNT.getCode(), ResultEnum.CAN_NOT_UPDATEACCOUNT.getMessage());
         }
-        userDao.updateById(user);
+        if (userAddDTO.getRoleIds().size()==0){
+
+            throw new BaseException(ResultEnum.NULL_ROLENAME.getCode(), ResultEnum.NULL_ROLENAME.getMessage());
+        }
+//        删除用户与角色关联
+        usersRolesService.remove(new QueryWrapper<UsersRoles>().eq("user_id", userAddDTO.getId()));
+        insertUserRole(userAddDTO.getId(), userAddDTO.getRoleIds());
+
+        userDao.updateUser(userAddDTO);
 
     }
 }

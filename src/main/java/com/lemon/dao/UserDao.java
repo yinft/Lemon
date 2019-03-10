@@ -21,4 +21,5 @@ public interface UserDao extends BaseMapper<User> {
     IPage<UserVo> page(Page<UserVo> page, @Param("u") UserDto userDto);
 
     Long insertAndGetId(UserAddDTO userAddDTO);
+    void updateUser(UserAddDTO userAddDTO);
 }

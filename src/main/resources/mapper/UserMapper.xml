@@ -15,9 +15,14 @@
         <!--</collection>-->
     </resultMap>
     <insert id="insertAndGetId" useGeneratedKeys="true" keyProperty="id">
- insert into user(username,email,password,avatar,enabled)
+    insert into user(username,email,password,avatar,enabled)
     values(#{username},#{email},#{password},#{avatar},#{enabled})
     </insert>
+    <update id="updateUser">
+update user set
+    username=#{username},email=#{email},enabled=#{enabled}
+     where id=#{id}
+    </update>
 
 
     <!--<select id="findByEmail"  resultType="com.lemon.domain.vo.UserVo">-->

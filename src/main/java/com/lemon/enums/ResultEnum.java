@@ -22,11 +22,12 @@ public enum ResultEnum {
     REPEAD_MENUNAME(3000001,"重复的菜单名"),
     URL_NOT_STARTWITHHTTP(3000002,"外链必须以http://或者https://开头"),
     REPEAD_ROLENAME(4000001,"重复的角色名"),
+    NULL_ROLENAME(4000011,"角色为空"),
     CAN_NOT_UPDATEROLE(4000002,"超级管理员无法修改"),
     RELE_NOT_EXIST(4000003,"角色不存在"),
     CAN_NOT_DELETEROLE(4000004,"超级管理员无法删除"),
     CAN_NOT_DELETACCOUNT(4000005,"该账号无法删除"),
-    CAN_NOT_UPDATEACCOUNT(4000006,"该账号无法更新"),
+    CAN_NOT_UPDATEACCOUNT(4000006,"该账号无法修改"),
     REPEAD_USERNAME(4000007,"重复的用户名"),
     REPEAD_EMAIL(4000008,"重复的邮箱名");
 

@@ -2,9 +2,8 @@ package com.lemon.domain.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,7 +14,7 @@ import java.util.List;
 @Data
 public class UserAddDTO {
 
-    @JsonIgnore
+    @ApiModelProperty("用户id，添加用户时自增长可不填")
     Long id;
     /**
      * 邮箱

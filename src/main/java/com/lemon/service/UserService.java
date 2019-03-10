@@ -40,10 +40,10 @@ public interface UserService extends IService<User> {
 
     /**
      * update
-     * @param user
+     * @param userAddDTO
      */
     @CacheEvict(allEntries = true)
-    void update(User user);
+    void update(UserAddDTO userAddDTO);
 
 
 }

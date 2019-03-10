@@ -67,12 +67,12 @@ public class UserController {
     @ApiOperation(value = "修改用户", notes = "修改用户", consumes = "application/json")
     @PutMapping(value = "/users")
     @PreAuthorize("hasAnyRole('ADMIN','USER_ALL','USER_EDIT')")
-    public ResultMap update(@Validated @RequestBody User user){
-        if (user.getId() == null) {
+    public ResultMap update(@Validated @RequestBody UserAddDTO userAddDTO){
+        if (userAddDTO.getId() == null) {
             throw new BaseException(ResultEnum.NULL_ID.getCode(),ResultEnum.NULL_ID.getMessage());
         }
-        userService.update(user);
-        return new ResultMap();
+        userService.update(userAddDTO);
+        return  ResultMap.success();
     }
 
 

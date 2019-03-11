@@ -92,6 +92,29 @@ public class RoleController {
     }
 
 
+    @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")
+    @ApiOperation(value = "修改角色权限", notes = "修改角色权限", consumes = "application/json")
+    @PutMapping(value = "/roles")
+    @PreAuthorize("hasAnyRole('ADMIN','ROLES_ALL','ROLES_EDIT')")
+    public ResultMap<List> updatePermission(@Validated @RequestBody Role role){
+
+        roleService.update(role);
+        return ResultMap.success();
+    }
+
+
+    @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")
+    @ApiOperation(value = "修改角色菜单", notes = "修改角色菜单", consumes = "application/json")
+    @PutMapping(value = "/roles")
+    @PreAuthorize("hasAnyRole('ADMIN','ROLES_ALL','ROLES_EDIT')")
+    public ResultMap<List> updateMenu(@Validated @RequestBody Role role){
+
+        roleService.update(role);
+        return ResultMap.success();
+    }
+
+
+
 
     @ApiImplicitParam(paramType = "header", name = "Authorization", defaultValue = "Bearer ")
     @ApiOperation(value = "删除角色", notes = "删除角色", consumes = "application/json")

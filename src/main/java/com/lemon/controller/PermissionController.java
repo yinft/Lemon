@@ -33,6 +33,7 @@ public class PermissionController {
         return null;
     }
 
+
     @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")
     @ApiOperation(value = "查询权限", notes = "查询权限", consumes = "application/json")
     @GetMapping(value = "/permissions")

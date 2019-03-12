@@ -8,7 +8,9 @@ import com.lemon.domain.dto.PermissionDto;
 import com.lemon.domain.entity.Menu;
 import com.lemon.domain.entity.Permission;
 import com.lemon.domain.entity.Role;
+import com.lemon.enums.ResultEnum;
 import com.lemon.service.PermissionService;
+import com.lemon.utils.exception.BaseException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,5 +100,13 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionDao, Permission
         map.put("content", trees.size() == 0 ? permissionDTOS : trees);
         map.put("totalElements", totalElements);
         return map;
+    }
+
+    @Override
+    public void create(Permission permission) {
+        if (permissionDao.selectOne(new QueryWrapper<Permission>().eq("name", permission.getName())) != null) {
+            throw new BaseException(ResultEnum.REPEAD_MENUNAME.getCode(), ResultEnum.REPEAD_MENUNAME.getMessage());
+        }
+        permissionDao.insert(permission);
     }
 }

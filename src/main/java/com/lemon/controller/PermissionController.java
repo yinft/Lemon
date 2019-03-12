@@ -3,6 +3,8 @@ package com.lemon.controller;
 import com.lemon.common.constant.Constants;
 import com.lemon.domain.dto.MenuDto;
 import com.lemon.domain.dto.PermissionDto;
+import com.lemon.domain.entity.Menu;
+import com.lemon.domain.entity.Permission;
 import com.lemon.domain.vo.ResultMap;
 import com.lemon.service.PermissionService;
 import io.swagger.annotations.Api;
@@ -11,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -59,9 +62,9 @@ public class PermissionController {
     @ApiOperation(value = "新增权限", notes = "新增权限", consumes = "application/json")
     @PostMapping(value = "/permissions")
     @PreAuthorize("hasAnyRole('ADMIN','PERMISSION_ALL','PERMISSION_CREATE')")
-    public ResultMap create(){
-
-        return null;
+    public ResultMap create(@Validated @RequestBody Permission permission){
+        permissionService.create(permission);
+        return ResultMap.success();
     }
 
     @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")

@@ -5,6 +5,7 @@ import com.lemon.domain.dto.MenuDto;
 import com.lemon.domain.dto.PermissionDto;
 import com.lemon.domain.entity.Permission;
 import com.lemon.domain.entity.Role;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
@@ -46,4 +47,13 @@ public interface PermissionService extends IService<Permission> {
      * @return
      */
     Map buildTree(List<PermissionDto> permissionDTOS);
+
+    /**
+     * create
+     * @param permission
+     * @return
+     */
+    @CacheEvict(allEntries = true)
+    void create(Permission permission);
+
 }

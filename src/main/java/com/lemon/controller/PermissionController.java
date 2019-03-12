@@ -1,13 +1,20 @@
 package com.lemon.controller;
 
 import com.lemon.common.constant.Constants;
+import com.lemon.domain.dto.MenuDto;
+import com.lemon.domain.dto.PermissionDto;
 import com.lemon.domain.vo.ResultMap;
+import com.lemon.service.PermissionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -21,6 +28,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api")
 public class PermissionController {
 
+    @Autowired
+    private PermissionService permissionService;
     /**
      * 返回全部的权限，新增角色时下拉选择
      * @return
@@ -30,17 +39,20 @@ public class PermissionController {
     @GetMapping(value = "/permissions/tree")
     @PreAuthorize("hasAnyRole('ADMIN','PERMISSION_ALL','PERMISSION_SELECT','ROLES_SELECT','ROLES_ALL')")
     public ResultMap getRoleTree(){
-        return null;
+        List list=permissionService.getPermissionTree(permissionService.findByPid(0L));
+        return ResultMap.success(list);
     }
+
 
 
     @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")
     @ApiOperation(value = "查询权限", notes = "查询权限", consumes = "application/json")
     @GetMapping(value = "/permissions")
     @PreAuthorize("hasAnyRole('ADMIN','PERMISSION_ALL','PERMISSION_SELECT')")
-    public ResultMap getPermissions(@RequestParam(required = false) String name){
-
-        return null;
+    public ResultMap<Map> getPermissions(@RequestParam(required = false) String name){
+        List<PermissionDto> menuDTOList= permissionService.getPermissionsByname(name);
+        Map map= permissionService.buildTree(menuDTOList);
+        return ResultMap.success(map);
     }
 
     @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")

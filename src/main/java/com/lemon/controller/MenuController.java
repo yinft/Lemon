@@ -80,7 +80,7 @@ public class MenuController {
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_SELECT')")
     public ResultMap<Map> getMenus(@RequestParam(required = false) String name){
         List<MenuDto> menuDTOList= menuService.getMenusByname(name);
-       Map map= menuService.buildTree(menuDTOList);
+        Map map= menuService.buildTree(menuDTOList);
         return ResultMap.success(map);
     }
 

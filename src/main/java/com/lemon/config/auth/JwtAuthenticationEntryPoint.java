@@ -24,7 +24,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
                          HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
         /**
-         * 当用户尝试访问安全的REST资源而不提供任何凭据（token）时，将调用此方法发送401 响应
+         * 当用户尝试访问安全的REST资源而不提供任何凭据（token）时，将调用此方法发送401 响应token认证失败
          */
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException==null?"Unauthorized":authException.getMessage());
     }

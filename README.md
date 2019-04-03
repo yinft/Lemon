@@ -1,5 +1,5 @@
 # Lemon
-从零开始用springboot+myabtis-plus+security搭建一个后台敏捷开发框架,计划未来拓展到物联网管理平台的领域。
+从零开始用springboot+myabtis-plus+security搭建一个后台敏捷开发框架,计划未来拓展到物联网管理平台的领域，目前只是一个脚手架。
  
   之前看到码云上还有github上很多关于前后端分离的shiro+springboot的很好的例子，发现没有springsecurity的，所以就找了一下，发现有个作者写的挺好的，作者的GitHub和码云就是下方前端源码的作者。但是那个作者的后端项目用的持久层框架是jpa，不是我擅长的mybatis,也不易于拓展，于是就萌生了自己写一套的想法。
  

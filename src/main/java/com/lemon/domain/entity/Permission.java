@@ -28,7 +28,7 @@ public class Permission extends Model<Permission> {
      * 主键,自增长
      */
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 别名
@@ -49,7 +49,7 @@ public class Permission extends Model<Permission> {
     /**
      * 父级id
      */
-    private Integer pid;
+    private Long pid;
 
 
 }

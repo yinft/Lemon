@@ -38,7 +38,7 @@ public class PermissionController {
      * @return
      */
     @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")
-    @ApiOperation(value = "获取全部权限", notes = "获取全部权限", consumes = "application/json")
+    @ApiOperation(value = "获取全部权限树", notes = "获取全部权限树", consumes = "application/json")
     @GetMapping(value = "/permissions/tree")
     @PreAuthorize("hasAnyRole('ADMIN','PERMISSION_ALL','PERMISSION_SELECT','ROLES_SELECT','ROLES_ALL')")
     public ResultMap getRoleTree(){
@@ -53,8 +53,8 @@ public class PermissionController {
     @GetMapping(value = "/permissions")
     @PreAuthorize("hasAnyRole('ADMIN','PERMISSION_ALL','PERMISSION_SELECT')")
     public ResultMap<Map> getPermissions(@RequestParam(required = false) String name){
-        List<PermissionDto> menuDTOList= permissionService.getPermissionsByname(name);
-        Map map= permissionService.buildTree(menuDTOList);
+        List<PermissionDto> permissionDTOS= permissionService.getPermissionsByname(name);
+        Map map= permissionService.buildTree(permissionDTOS);
         return ResultMap.success(map);
     }
 

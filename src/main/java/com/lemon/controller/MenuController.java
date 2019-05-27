@@ -64,7 +64,7 @@ public class MenuController {
      * @return
      */
     @ApiImplicitParam(paramType = "header", name = Constants.TOKEN_HEADER_NAME, defaultValue = "Bearer ")
-    @ApiOperation(value = "全部菜单", notes = "全部菜单", consumes = "application/json")
+    @ApiOperation(value = "全部菜单树", notes = "全部菜单树", consumes = "application/json")
     @GetMapping(value = "/menus/tree")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_SELECT')")
     public ResultMap<List> getMenuTree(){

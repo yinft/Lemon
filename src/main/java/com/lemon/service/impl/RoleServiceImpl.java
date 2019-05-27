@@ -17,10 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.management.relation.RoleStatus;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author: yinft
@@ -37,6 +34,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
 
     @Override
     public List getRoleTree() {
+
         List<Role> roleList = roleDao.selectList(new QueryWrapper<>());
 
         List<Map<String, Object>> list = new ArrayList<>();
